@@ -14,12 +14,6 @@
 		9FAD0255151D677500D32564 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FAD0254151D677500D32564 /* main.m */; };
 		9FAD0259151D677500D32564 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FAD0258151D677500D32564 /* AppDelegate.m */; };
 		9FAD025C151D677500D32564 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FAD025A151D677500D32564 /* MainStoryboard.storyboard */; };
-		9FAD025F151D677500D32564 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FAD025E151D677500D32564 /* FirstViewController.m */; };
-		9FAD0261151D677500D32564 /* first.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FAD0260151D677500D32564 /* first.png */; };
-		9FAD0263151D677500D32564 /* first@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FAD0262151D677500D32564 /* first@2x.png */; };
-		9FAD0266151D677500D32564 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FAD0265151D677500D32564 /* SecondViewController.m */; };
-		9FAD0268151D677500D32564 /* second.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FAD0267151D677500D32564 /* second.png */; };
-		9FAD026A151D677500D32564 /* second@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FAD0269151D677500D32564 /* second@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,21 +21,13 @@
 		9FAD0248151D677500D32564 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9FAD024A151D677500D32564 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9FAD024C151D677500D32564 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		9FAD0250151D677500D32564 /* Dandan-Info.plist */ = {isa = PBXFileReference; path = "Dandan-Info.plist"; sourceTree = "<group>"; };
+		9FAD0250151D677500D32564 /* Dandan-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Dandan-Info.plist"; sourceTree = "<group>"; };
 		9FAD0252151D677500D32564 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9FAD0254151D677500D32564 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		9FAD0256151D677500D32564 /* Dandan-Prefix.pch */ = {isa = PBXFileReference; path = "Dandan-Prefix.pch"; sourceTree = "<group>"; };
-		9FAD0257151D677500D32564 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		9FAD0256151D677500D32564 /* Dandan-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Dandan-Prefix.pch"; sourceTree = "<group>"; };
+		9FAD0257151D677500D32564 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9FAD0258151D677500D32564 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		9FAD025B151D677500D32564 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		9FAD025D151D677500D32564 /* FirstViewController.h */ = {isa = PBXFileReference; path = FirstViewController.h; sourceTree = "<group>"; };
-		9FAD025E151D677500D32564 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		9FAD0260151D677500D32564 /* first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first.png; sourceTree = "<group>"; };
-		9FAD0262151D677500D32564 /* first@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first@2x.png"; sourceTree = "<group>"; };
-		9FAD0264151D677500D32564 /* SecondViewController.h */ = {isa = PBXFileReference; path = SecondViewController.h; sourceTree = "<group>"; };
-		9FAD0265151D677500D32564 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
-		9FAD0267151D677500D32564 /* second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = second.png; sourceTree = "<group>"; };
-		9FAD0269151D677500D32564 /* second@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "second@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,14 +77,6 @@
 				9FAD0257151D677500D32564 /* AppDelegate.h */,
 				9FAD0258151D677500D32564 /* AppDelegate.m */,
 				9FAD025A151D677500D32564 /* MainStoryboard.storyboard */,
-				9FAD025D151D677500D32564 /* FirstViewController.h */,
-				9FAD025E151D677500D32564 /* FirstViewController.m */,
-				9FAD0260151D677500D32564 /* first.png */,
-				9FAD0262151D677500D32564 /* first@2x.png */,
-				9FAD0264151D677500D32564 /* SecondViewController.h */,
-				9FAD0265151D677500D32564 /* SecondViewController.m */,
-				9FAD0267151D677500D32564 /* second.png */,
-				9FAD0269151D677500D32564 /* second@2x.png */,
 				9FAD024F151D677500D32564 /* Supporting Files */,
 			);
 			path = Dandan;
@@ -167,10 +145,6 @@
 			files = (
 				9FAD0253151D677500D32564 /* InfoPlist.strings in Resources */,
 				9FAD025C151D677500D32564 /* MainStoryboard.storyboard in Resources */,
-				9FAD0261151D677500D32564 /* first.png in Resources */,
-				9FAD0263151D677500D32564 /* first@2x.png in Resources */,
-				9FAD0268151D677500D32564 /* second.png in Resources */,
-				9FAD026A151D677500D32564 /* second@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,8 +157,6 @@
 			files = (
 				9FAD0255151D677500D32564 /* main.m in Sources */,
 				9FAD0259151D677500D32564 /* AppDelegate.m in Sources */,
-				9FAD025F151D677500D32564 /* FirstViewController.m in Sources */,
-				9FAD0266151D677500D32564 /* SecondViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
