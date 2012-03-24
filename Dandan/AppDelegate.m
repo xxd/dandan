@@ -14,7 +14,32 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    // 修改状态栏为黑色透明背景
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:NO];
+    
+    // 修改NavigationBar的背景
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"BackgroundTopbar"] forBarMetrics:UIBarMetricsDefault];
+    
+    
+    // 修改后退按钮的背景
+    // 普通模式
+    UIImage *uiBarBackButtonNormal = [[UIImage imageNamed:@"uiBarBackButtonNormal"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 0, 6)];
+    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:uiBarBackButtonNormal forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    
+    // 选中模式
+    UIImage *uiBarBackButtonSelected = [[UIImage imageNamed:@"uiBarBackButtonSelected"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 0, 6)];
+    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:uiBarBackButtonSelected forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+    
+    
+    // 修改常规按钮的背景
+    // 普通模式
+    UIImage *uiBarButtonItemNormal = [[UIImage imageNamed:@"uiBarButtonItemNormal"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
+    [[UIBarButtonItem appearance] setBackgroundImage:uiBarButtonItemNormal forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    
+    // 选中模式
+    UIImage *uiBarButtonItemSelected = [[UIImage imageNamed:@"uiBarButtonItemSelected"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
+    [[UIBarButtonItem appearance] setBackgroundImage:uiBarButtonItemSelected forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+    
     return YES;
 }
 							

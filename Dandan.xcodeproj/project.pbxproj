@@ -14,6 +14,16 @@
 		9FAD0255151D677500D32564 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FAD0254151D677500D32564 /* main.m */; };
 		9FAD0259151D677500D32564 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FAD0258151D677500D32564 /* AppDelegate.m */; };
 		9FAD025C151D677500D32564 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FAD025A151D677500D32564 /* MainStoryboard.storyboard */; };
+		9FAD027F151D703000D32564 /* BackgroundTopbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FAD0275151D703000D32564 /* BackgroundTopbar.png */; };
+		9FAD0280151D703000D32564 /* BackgroundTopbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FAD0276151D703000D32564 /* BackgroundTopbar@2x.png */; };
+		9FAD0281151D703000D32564 /* uiBarButtonItemNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FAD0277151D703000D32564 /* uiBarButtonItemNormal.png */; };
+		9FAD0282151D703000D32564 /* uiBarButtonItemNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FAD0278151D703000D32564 /* uiBarButtonItemNormal@2x.png */; };
+		9FAD0283151D703000D32564 /* uiBarButtonItemSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FAD0279151D703000D32564 /* uiBarButtonItemSelected.png */; };
+		9FAD0284151D703000D32564 /* uiBarButtonItemSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FAD027A151D703000D32564 /* uiBarButtonItemSelected@2x.png */; };
+		9FAD0285151D703000D32564 /* uiBarBackButtonNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FAD027B151D703000D32564 /* uiBarBackButtonNormal.png */; };
+		9FAD0286151D703000D32564 /* uiBarBackButtonNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FAD027C151D703000D32564 /* uiBarBackButtonNormal@2x.png */; };
+		9FAD0287151D703000D32564 /* uiBarBackButtonSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FAD027D151D703000D32564 /* uiBarBackButtonSelected.png */; };
+		9FAD0288151D703000D32564 /* uiBarBackButtonSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FAD027E151D703000D32564 /* uiBarBackButtonSelected@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +38,16 @@
 		9FAD0257151D677500D32564 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9FAD0258151D677500D32564 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		9FAD025B151D677500D32564 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		9FAD0275151D703000D32564 /* BackgroundTopbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundTopbar.png; sourceTree = "<group>"; };
+		9FAD0276151D703000D32564 /* BackgroundTopbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackgroundTopbar@2x.png"; sourceTree = "<group>"; };
+		9FAD0277151D703000D32564 /* uiBarButtonItemNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uiBarButtonItemNormal.png; sourceTree = "<group>"; };
+		9FAD0278151D703000D32564 /* uiBarButtonItemNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uiBarButtonItemNormal@2x.png"; sourceTree = "<group>"; };
+		9FAD0279151D703000D32564 /* uiBarButtonItemSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uiBarButtonItemSelected.png; sourceTree = "<group>"; };
+		9FAD027A151D703000D32564 /* uiBarButtonItemSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uiBarButtonItemSelected@2x.png"; sourceTree = "<group>"; };
+		9FAD027B151D703000D32564 /* uiBarBackButtonNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uiBarBackButtonNormal.png; sourceTree = "<group>"; };
+		9FAD027C151D703000D32564 /* uiBarBackButtonNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uiBarBackButtonNormal@2x.png"; sourceTree = "<group>"; };
+		9FAD027D151D703000D32564 /* uiBarBackButtonSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uiBarBackButtonSelected.png; sourceTree = "<group>"; };
+		9FAD027E151D703000D32564 /* uiBarBackButtonSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uiBarBackButtonSelected@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,12 +105,30 @@
 		9FAD024F151D677500D32564 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9FAD0274151D700E00D32564 /* Images */,
 				9FAD0250151D677500D32564 /* Dandan-Info.plist */,
 				9FAD0251151D677500D32564 /* InfoPlist.strings */,
 				9FAD0254151D677500D32564 /* main.m */,
 				9FAD0256151D677500D32564 /* Dandan-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9FAD0274151D700E00D32564 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				9FAD0275151D703000D32564 /* BackgroundTopbar.png */,
+				9FAD0276151D703000D32564 /* BackgroundTopbar@2x.png */,
+				9FAD0277151D703000D32564 /* uiBarButtonItemNormal.png */,
+				9FAD0278151D703000D32564 /* uiBarButtonItemNormal@2x.png */,
+				9FAD0279151D703000D32564 /* uiBarButtonItemSelected.png */,
+				9FAD027A151D703000D32564 /* uiBarButtonItemSelected@2x.png */,
+				9FAD027B151D703000D32564 /* uiBarBackButtonNormal.png */,
+				9FAD027C151D703000D32564 /* uiBarBackButtonNormal@2x.png */,
+				9FAD027D151D703000D32564 /* uiBarBackButtonSelected.png */,
+				9FAD027E151D703000D32564 /* uiBarBackButtonSelected@2x.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,6 +183,16 @@
 			files = (
 				9FAD0253151D677500D32564 /* InfoPlist.strings in Resources */,
 				9FAD025C151D677500D32564 /* MainStoryboard.storyboard in Resources */,
+				9FAD027F151D703000D32564 /* BackgroundTopbar.png in Resources */,
+				9FAD0280151D703000D32564 /* BackgroundTopbar@2x.png in Resources */,
+				9FAD0281151D703000D32564 /* uiBarButtonItemNormal.png in Resources */,
+				9FAD0282151D703000D32564 /* uiBarButtonItemNormal@2x.png in Resources */,
+				9FAD0283151D703000D32564 /* uiBarButtonItemSelected.png in Resources */,
+				9FAD0284151D703000D32564 /* uiBarButtonItemSelected@2x.png in Resources */,
+				9FAD0285151D703000D32564 /* uiBarBackButtonNormal.png in Resources */,
+				9FAD0286151D703000D32564 /* uiBarBackButtonNormal@2x.png in Resources */,
+				9FAD0287151D703000D32564 /* uiBarBackButtonSelected.png in Resources */,
+				9FAD0288151D703000D32564 /* uiBarBackButtonSelected@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
