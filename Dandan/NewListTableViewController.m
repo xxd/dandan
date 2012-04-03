@@ -16,14 +16,6 @@
 @implementation NewListTableViewController
 @synthesize listNameTextField, isShare;
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -120,6 +112,5 @@
 -(void)controller:(PickCategoryTableViewController *)controller didSelectCategory:(NSString *)category{
     UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     cell.detailTextLabel.text = category;
-    [self.navigationController popViewControllerAnimated:YES];
 }
 @end
