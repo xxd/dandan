@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PickCategoryTableViewController.h"
 
 @interface NewListTableViewController : UITableViewController
-<UITextFieldDelegate>
+<UITextFieldDelegate, pickCategoryTableViewControllerDelegate>
 @property (strong, nonatomic) UITextField *listNameTextField;
 @property (strong, nonatomic) UISwitch *isShare;
 - (IBAction)CancelModal:(id)sender;

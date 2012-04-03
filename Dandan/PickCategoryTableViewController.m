@@ -7,12 +7,14 @@
 //
 
 #import "PickCategoryTableViewController.h"
+#import "NewListTableViewController.h"
 
 @interface PickCategoryTableViewController ()
 
 @end
 
 @implementation PickCategoryTableViewController
+@synthesize delegate, categories;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -27,11 +29,7 @@
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    categories = [NSArray arrayWithObjects:@"Fashion", @"Tech", @"Travel", nil];
 }
 
 - (void)viewDidUnload
@@ -50,25 +48,25 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return [categories count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    // Configure the cell...
-    
+    if (cell == nil){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    NSInteger row = [indexPath row];
+    cell.textLabel.text = [categories objectAtIndex:row];
     return cell;
 }
 
@@ -115,13 +113,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+//     NewListTableViewController *detailViewController = [[NewListTableViewController alloc] init];
+    [self.delegate controller:self didSelectCategory:[categories objectAtIndex:[indexPath row]]];
 }
 
 @end

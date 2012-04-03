@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PickCategoryTableViewController : UITableViewController
+@class PickCategoryTableViewController;
+@protocol pickCategoryTableViewControllerDelegate <NSObject>
+-(void)controller:(PickCategoryTableViewController *)controller didSelectCategory:(NSString *)category;
+@end
 
+@interface PickCategoryTableViewController : UITableViewController
+@property (strong, nonatomic) NSArray *categories;
+@property (nonatomic, weak) id <pickCategoryTableViewControllerDelegate> delegate;
 @end
