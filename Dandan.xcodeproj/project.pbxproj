@@ -78,6 +78,8 @@
 		4D9FDAC91530821D001BA076 /* JSONKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		4D9FDACA1530821D001BA076 /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		4D9FDACB1530821D001BA076 /* Reachability.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		4D9FDACD15308546001BA076 /* Sync.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sync.h; sourceTree = "<group>"; };
+		4D9FDACE15308546001BA076 /* Sync.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sync.m; sourceTree = "<group>"; };
 		9F7104CE152B24C0007D15E7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		9F89DFF0153039C400227E11 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		9F89DFF2153039C900227E11 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -243,6 +245,8 @@
 				9F8EB862152AA9D20051C105 /* PickCategoryTableViewController.m */,
 				9F969DB2152AE15F0089F3DC /* NewItemViewController.h */,
 				9F969DB3152AE15F0089F3DC /* NewItemViewController.m */,
+				4D9FDACD15308546001BA076 /* Sync.h */,
+				4D9FDACE15308546001BA076 /* Sync.m */,
 			);
 			path = Dandan;
 			sourceTree = "<group>";

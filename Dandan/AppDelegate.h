@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+#import <sqlite3.h>
+@interface AppDelegate : UIResponder <UIApplicationDelegate>{
+    sqlite3 *database;
+    NSMutableArray *listArray;
+}
+@property (strong, nonatomic) NSMutableArray *listArray;
 
 @property (strong, nonatomic) UIWindow *window;
 

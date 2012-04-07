@@ -7,10 +7,86 @@
 //
 
 #import "AppDelegate.h"
+#import "Sync.h"
+
+@interface AppDelegate(Private)
+-(void)createEditableCopyofDatabaseIfNeeded;
+-(void)initializeDatabase;
+-(void)syncList;
+@end
 
 @implementation AppDelegate
-
 @synthesize window = _window;
+@synthesize listArray;
+
+-(void)createEditableCopyofDatabaseIfNeeded{
+    BOOL success;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *writeableDBPath = [documentsDirectory stringByAppendingPathComponent:@"dan.sqlite"];
+    NSLog(@"%@",writeableDBPath);
+    success = [fileManager fileExistsAtPath:writeableDBPath];
+    if (success) return;
+    NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath]stringByAppendingPathComponent:@"dan.sqlite"];
+    success = [fileManager copyItemAtPath:defaultDBPath toPath:writeableDBPath error:&error];
+    if (!success) {
+        NSAssert1(0, @"Failed to create writable database file with message '%@'.", [error localizedDescription]);
+    }
+}
+
+-(void)initializeDatabase{    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"dan.sqlite"];
+    
+    if (sqlite3_open([path UTF8String], &database) == SQLITE_OK) {
+        const char *sql = "SELECT id FROM lists ORDER BY id DESC LIMIT 1";
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                NSInteger primaryKey = sqlite3_column_int(statement, 0);
+                if (!primaryKey) return;
+                Sync *sync = [[Sync alloc] syncWithList:primaryKey];
+                listArray = [sync copy];
+            }
+        } else {
+            Sync *sync = [[Sync alloc] syncWithList:0];
+            listArray = [sync copy];    
+        }
+        sqlite3_finalize(statement);
+    } else {
+        sqlite3_close(database);
+        NSAssert1(0, @"Failed to open database with message '%s'.", sqlite3_errmsg(database));
+    }
+    NSLog(@"listArray包含：%@",listArray);
+    NSLog(@"The content of arry is %i",[listArray count]);  
+}
+
+-(void)syncList{
+    NSDictionary *listDict;
+    char *errorMsg; 
+    NSInteger listID;
+    NSString *listTitle;
+    NSInteger categoryID;
+    
+    for(int i = 0; i < [listArray count]; i++){		
+		listDict = [listArray objectAtIndex:i];
+        for (id key in listDict) {
+            NSLog(@"key:%@, value:%@",key,[listDict objectForKey:key]);
+        }
+        listID = [listDict objectForKey:@"id"];
+        listTitle = [listDict objectForKey:@"title"];
+        categoryID = [listDict objectForKey:@"category_id"];
+        NSString *insertSQL = [NSString stringWithFormat: @"insert into lists (id,title,category_id) values(\"%@\", \"%@\", \"%@\")", listID, listTitle,categoryID];
+        NSLog(@"%@",insertSQL);
+        const char *insert_stmt = [insertSQL UTF8String];
+        if (sqlite3_exec(database, insert_stmt, NULL, NULL, &errorMsg)==SQLITE_OK) { 
+            NSLog(@"insert ok.");
+        }
+	}	
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
