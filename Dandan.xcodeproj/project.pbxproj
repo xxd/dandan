@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F7104CF152B24C0007D15E7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7104CE152B24C0007D15E7 /* MobileCoreServices.framework */; };
 		9F8EB863152AA9D20051C105 /* PickCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8EB862152AA9D20051C105 /* PickCategoryTableViewController.m */; };
+		9F969DB4152AE15F0089F3DC /* NewItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F969DB3152AE15F0089F3DC /* NewItemViewController.m */; };
+		9F969DC4152AFBD40089F3DC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F969DC2152AFBD30089F3DC /* MapKit.framework */; };
+		9F969DC5152AFBD40089F3DC /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F969DC3152AFBD30089F3DC /* MediaPlayer.framework */; };
 		9FAD0249151D677500D32564 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FAD0248151D677500D32564 /* UIKit.framework */; };
 		9FAD024B151D677500D32564 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FAD024A151D677500D32564 /* Foundation.framework */; };
 		9FAD024D151D677500D32564 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FAD024C151D677500D32564 /* CoreGraphics.framework */; };
@@ -32,8 +36,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9F7104CE152B24C0007D15E7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		9F8EB861152AA9D20051C105 /* PickCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickCategoryTableViewController.h; sourceTree = "<group>"; };
 		9F8EB862152AA9D20051C105 /* PickCategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickCategoryTableViewController.m; sourceTree = "<group>"; };
+		9F969DB2152AE15F0089F3DC /* NewItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewItemViewController.h; sourceTree = "<group>"; };
+		9F969DB3152AE15F0089F3DC /* NewItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewItemViewController.m; sourceTree = "<group>"; };
+		9F969DC2152AFBD30089F3DC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		9F969DC3152AFBD30089F3DC /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		9FAD0244151D677500D32564 /* Dandan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dandan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FAD0248151D677500D32564 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9FAD024A151D677500D32564 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -68,6 +77,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F7104CF152B24C0007D15E7 /* MobileCoreServices.framework in Frameworks */,
+				9F969DC4152AFBD40089F3DC /* MapKit.framework in Frameworks */,
+				9F969DC5152AFBD40089F3DC /* MediaPlayer.framework in Frameworks */,
 				9FAD02AA151DADEF00D32564 /* QuartzCore.framework in Frameworks */,
 				9FAD0249151D677500D32564 /* UIKit.framework in Frameworks */,
 				9FAD024B151D677500D32564 /* Foundation.framework in Frameworks */,
@@ -98,6 +110,9 @@
 		9FAD0247151D677500D32564 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9F7104CE152B24C0007D15E7 /* MobileCoreServices.framework */,
+				9F969DC2152AFBD30089F3DC /* MapKit.framework */,
+				9F969DC3152AFBD30089F3DC /* MediaPlayer.framework */,
 				9FAD02A9151DADEF00D32564 /* QuartzCore.framework */,
 				9FAD0248151D677500D32564 /* UIKit.framework */,
 				9FAD024A151D677500D32564 /* Foundation.framework */,
@@ -119,6 +134,8 @@
 				9FAD029B151D786900D32564 /* NewListTableViewController.m */,
 				9F8EB861152AA9D20051C105 /* PickCategoryTableViewController.h */,
 				9F8EB862152AA9D20051C105 /* PickCategoryTableViewController.m */,
+				9F969DB2152AE15F0089F3DC /* NewItemViewController.h */,
+				9F969DB3152AE15F0089F3DC /* NewItemViewController.m */,
 			);
 			path = Dandan;
 			sourceTree = "<group>";
@@ -231,6 +248,7 @@
 				9FAD0299151D752A00D32564 /* ListsTableViewController.m in Sources */,
 				9FAD029C151D786900D32564 /* NewListTableViewController.m in Sources */,
 				9F8EB863152AA9D20051C105 /* PickCategoryTableViewController.m in Sources */,
+				9F969DB4152AE15F0089F3DC /* NewItemViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

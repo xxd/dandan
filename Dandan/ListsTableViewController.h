@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ListsTableViewController : UITableViewController
-
+@property (strong, nonatomic) NSArray *lists;
 @end
