@@ -1,8 +1,8 @@
 //
 //  Sync.m
-//  dandan_xxd
+//  Dandan
 //
-//  Created by xxd on 12-4-5.
+//  Created by xxd on 12-4-7.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
@@ -19,7 +19,7 @@
 
 -(NSArray *)syncWithList:(NSInteger)listID
 {
-    NSString *urlit = [NSString stringWithFormat:@"http://0.0.0.0:3000/lists/%i/sync.json?auth_token=%@",listID,@"D4sdQ2if9Kz27hKpU3ej"];
+    NSString *urlit = [NSString stringWithFormat:@"http://0.0.0.0:3000/lists/%i/sync.json?auth_token=%@",listID,@"gseSYCEtQsqtTXyiDRwa"];
     NSLog(@"url: %@",urlit);
     NSURL *freequestionurl = [NSURL URLWithString:urlit];
     ASIHTTPRequest *back = [ASIHTTPRequest requestWithURL:freequestionurl];

@@ -1,8 +1,8 @@
 //
 //  Sync.h
-//  dandan_xxd
+//  Dandan
 //
-//  Created by xxd on 12-4-5.
+//  Created by xxd on 12-4-7.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 

@@ -25,11 +25,11 @@
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *writeableDBPath = [documentsDirectory stringByAppendingPathComponent:@"dan.sqlite"];
+    NSString *writeableDBPath = [documentsDirectory stringByAppendingPathComponent:@"dandan.sqlite"];
     NSLog(@"%@",writeableDBPath);
     success = [fileManager fileExistsAtPath:writeableDBPath];
     if (success) return;
-    NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath]stringByAppendingPathComponent:@"dan.sqlite"];
+    NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath]stringByAppendingPathComponent:@"dandan.sqlite"];
     success = [fileManager copyItemAtPath:defaultDBPath toPath:writeableDBPath error:&error];
     if (!success) {
         NSAssert1(0, @"Failed to create writable database file with message '%@'.", [error localizedDescription]);
@@ -39,7 +39,7 @@
 -(void)initializeDatabase{    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"dan.sqlite"];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"dandan.sqlite"];
     
     if (sqlite3_open([path UTF8String], &database) == SQLITE_OK) {
         const char *sql = "SELECT id FROM lists ORDER BY id DESC LIMIT 1";
@@ -48,6 +48,7 @@
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 NSInteger primaryKey = sqlite3_column_int(statement, 0);
                 if (!primaryKey) return;
+                NSLog(@"primaryKey：%@",primaryKey);
                 Sync *sync = [[Sync alloc] syncWithList:primaryKey];
                 listArray = [sync copy];
             }
@@ -115,6 +116,10 @@
     // 选中模式
     UIImage *uiBarButtonItemSelected = [[UIImage imageNamed:@"uiBarButtonItemSelected"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
     [[UIBarButtonItem appearance] setBackgroundImage:uiBarButtonItemSelected forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+    
+    [self createEditableCopyofDatabaseIfNeeded];
+    [self initializeDatabase];
+    [self syncList];
     
     return YES;
 }
