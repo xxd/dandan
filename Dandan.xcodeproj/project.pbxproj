@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		9F7104CF152B24C0007D15E7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7104CE152B24C0007D15E7 /* MobileCoreServices.framework */; };
 		9F89DFF1153039C400227E11 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F89DFF0153039C400227E11 /* CoreImage.framework */; };
-		9F89DFF3153039C900227E11 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F89DFF2153039C900227E11 /* Accelerate.framework */; };
 		9F8E81C9152FF4FB0081FD3E /* UIColor+UIColor_Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8E81C8152FF4FB0081FD3E /* UIColor+UIColor_Hex.m */; };
-		9F8E81CE153034880081FD3E /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8E81CD153034880081FD3E /* ImageIO.framework */; };
 		9F8E81D41530388F0081FD3E /* UIImage+Resizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8E81D31530388F0081FD3E /* UIImage+Resizing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9F8E81D71530392D0081FD3E /* NYXImagesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8E81D61530392D0081FD3E /* NYXImagesHelper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9F8EB863152AA9D20051C105 /* PickCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8EB862152AA9D20051C105 /* PickCategoryTableViewController.m */; };
@@ -92,9 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F89DFF3153039C900227E11 /* Accelerate.framework in Frameworks */,
 				9F89DFF1153039C400227E11 /* CoreImage.framework in Frameworks */,
-				9F8E81CE153034880081FD3E /* ImageIO.framework in Frameworks */,
 				9F7104CF152B24C0007D15E7 /* MobileCoreServices.framework in Frameworks */,
 				9F969DC4152AFBD40089F3DC /* MapKit.framework in Frameworks */,
 				9F969DC5152AFBD40089F3DC /* MediaPlayer.framework in Frameworks */,
