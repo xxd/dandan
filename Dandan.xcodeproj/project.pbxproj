@@ -8,7 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		9F7104CF152B24C0007D15E7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7104CE152B24C0007D15E7 /* MobileCoreServices.framework */; };
+		9F89DFF1153039C400227E11 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F89DFF0153039C400227E11 /* CoreImage.framework */; };
+		9F89DFF3153039C900227E11 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F89DFF2153039C900227E11 /* Accelerate.framework */; };
 		9F8E81C9152FF4FB0081FD3E /* UIColor+UIColor_Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8E81C8152FF4FB0081FD3E /* UIColor+UIColor_Hex.m */; };
+		9F8E81CE153034880081FD3E /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8E81CD153034880081FD3E /* ImageIO.framework */; };
+		9F8E81D41530388F0081FD3E /* UIImage+Resizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8E81D31530388F0081FD3E /* UIImage+Resizing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9F8E81D71530392D0081FD3E /* NYXImagesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8E81D61530392D0081FD3E /* NYXImagesHelper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9F8EB863152AA9D20051C105 /* PickCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8EB862152AA9D20051C105 /* PickCategoryTableViewController.m */; };
 		9F969DB4152AE15F0089F3DC /* NewItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F969DB3152AE15F0089F3DC /* NewItemViewController.m */; };
 		9F969DC4152AFBD40089F3DC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F969DC2152AFBD30089F3DC /* MapKit.framework */; };
@@ -38,8 +43,15 @@
 
 /* Begin PBXFileReference section */
 		9F7104CE152B24C0007D15E7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		9F89DFF0153039C400227E11 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		9F89DFF2153039C900227E11 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		9F8E81C7152FF4FB0081FD3E /* UIColor+UIColor_Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+UIColor_Hex.h"; sourceTree = "<group>"; };
 		9F8E81C8152FF4FB0081FD3E /* UIColor+UIColor_Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+UIColor_Hex.m"; sourceTree = "<group>"; };
+		9F8E81CD153034880081FD3E /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		9F8E81D21530388F0081FD3E /* UIImage+Resizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resizing.h"; sourceTree = "<group>"; };
+		9F8E81D31530388F0081FD3E /* UIImage+Resizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resizing.m"; sourceTree = "<group>"; };
+		9F8E81D51530392D0081FD3E /* NYXImagesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYXImagesHelper.h; sourceTree = "<group>"; };
+		9F8E81D61530392D0081FD3E /* NYXImagesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYXImagesHelper.m; sourceTree = "<group>"; };
 		9F8EB861152AA9D20051C105 /* PickCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickCategoryTableViewController.h; sourceTree = "<group>"; };
 		9F8EB862152AA9D20051C105 /* PickCategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickCategoryTableViewController.m; sourceTree = "<group>"; };
 		9F969DB2152AE15F0089F3DC /* NewItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewItemViewController.h; sourceTree = "<group>"; };
@@ -80,6 +92,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F89DFF3153039C900227E11 /* Accelerate.framework in Frameworks */,
+				9F89DFF1153039C400227E11 /* CoreImage.framework in Frameworks */,
+				9F8E81CE153034880081FD3E /* ImageIO.framework in Frameworks */,
 				9F7104CF152B24C0007D15E7 /* MobileCoreServices.framework in Frameworks */,
 				9F969DC4152AFBD40089F3DC /* MapKit.framework in Frameworks */,
 				9F969DC5152AFBD40089F3DC /* MediaPlayer.framework in Frameworks */,
@@ -113,6 +128,9 @@
 		9FAD0247151D677500D32564 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9F89DFF2153039C900227E11 /* Accelerate.framework */,
+				9F89DFF0153039C400227E11 /* CoreImage.framework */,
+				9F8E81CD153034880081FD3E /* ImageIO.framework */,
 				9F7104CE152B24C0007D15E7 /* MobileCoreServices.framework */,
 				9F969DC2152AFBD30089F3DC /* MapKit.framework */,
 				9F969DC3152AFBD30089F3DC /* MediaPlayer.framework */,
@@ -127,6 +145,10 @@
 		9FAD024E151D677500D32564 /* Dandan */ = {
 			isa = PBXGroup;
 			children = (
+				9F8E81D51530392D0081FD3E /* NYXImagesHelper.h */,
+				9F8E81D61530392D0081FD3E /* NYXImagesHelper.m */,
+				9F8E81D21530388F0081FD3E /* UIImage+Resizing.h */,
+				9F8E81D31530388F0081FD3E /* UIImage+Resizing.m */,
 				9F8E81C7152FF4FB0081FD3E /* UIColor+UIColor_Hex.h */,
 				9F8E81C8152FF4FB0081FD3E /* UIColor+UIColor_Hex.m */,
 				9FAD0257151D677500D32564 /* AppDelegate.h */,
@@ -255,6 +277,8 @@
 				9F8EB863152AA9D20051C105 /* PickCategoryTableViewController.m in Sources */,
 				9F969DB4152AE15F0089F3DC /* NewItemViewController.m in Sources */,
 				9F8E81C9152FF4FB0081FD3E /* UIColor+UIColor_Hex.m in Sources */,
+				9F8E81D41530388F0081FD3E /* UIImage+Resizing.m in Sources */,
+				9F8E81D71530392D0081FD3E /* NYXImagesHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

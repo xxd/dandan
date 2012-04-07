@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+UIColor_Hex.h"
 #import <MobileCoreServices/UTCoreTypes.h>
+#import "UIImage+Resizing.h"
 
 @interface NewItemViewController ()
 static UIImage *shrinkImage(UIImage *original, CGSize size);
@@ -192,7 +193,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     self.lastChosenMediaType = [info objectForKey:UIImagePickerControllerMediaType];
     if ([lastChosenMediaType isEqual:(NSString *)kUTTypeImage]) {
         UIImage *chosenImage = [info objectForKey:UIImagePickerControllerEditedImage];
-        UIImage *shrunkenImage = shrinkImage(chosenImage, imageFrame.size);
+        UIImage *shrunkenImage = shrinkImage(chosenImage, CGSizeMake(310, 310));
         self.image = shrunkenImage;
     }
     [picker dismissModalViewControllerAnimated:YES];
@@ -217,8 +218,9 @@ static UIImage *shrinkImage(UIImage *original, CGSize size){
 
 - (void)updateDisplay{
     if ([lastChosenMediaType isEqual:(NSString *)kUTTypeImage]) {
-        
-        self.imageView.image = image;
+        UIImage *scaleImage = [image scaleToFitSize:CGSizeMake(600, 600/image.size.width*self.image.size.height)];
+        UIImage *cropImage = [scaleImage cropToSize:CGSizeMake(600, 322) usingMode:NYXCropModeCenter];
+        self.imageView.image = cropImage;
         
         self.imageView.hidden = NO;
         self.changeImageButton.hidden = NO;
@@ -274,5 +276,4 @@ static UIImage *shrinkImage(UIImage *original, CGSize size){
         [alert show];
     }
 }
-
 @end
