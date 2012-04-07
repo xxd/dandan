@@ -20,5 +20,7 @@
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UIButton *changeImageButton;
 @property (strong, nonatomic) UIButton *clearImageButton;
+@property (strong, nonatomic) NSMutableArray *items;
+- (IBAction)CancelModal:(id)sender;
 - (void)registerForKeyboardNotifications;
 @end

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9F7104CF152B24C0007D15E7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7104CE152B24C0007D15E7 /* MobileCoreServices.framework */; };
+		9F8E81C9152FF4FB0081FD3E /* UIColor+UIColor_Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8E81C8152FF4FB0081FD3E /* UIColor+UIColor_Hex.m */; };
 		9F8EB863152AA9D20051C105 /* PickCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8EB862152AA9D20051C105 /* PickCategoryTableViewController.m */; };
 		9F969DB4152AE15F0089F3DC /* NewItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F969DB3152AE15F0089F3DC /* NewItemViewController.m */; };
 		9F969DC4152AFBD40089F3DC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F969DC2152AFBD30089F3DC /* MapKit.framework */; };
@@ -37,6 +38,8 @@
 
 /* Begin PBXFileReference section */
 		9F7104CE152B24C0007D15E7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		9F8E81C7152FF4FB0081FD3E /* UIColor+UIColor_Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+UIColor_Hex.h"; sourceTree = "<group>"; };
+		9F8E81C8152FF4FB0081FD3E /* UIColor+UIColor_Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+UIColor_Hex.m"; sourceTree = "<group>"; };
 		9F8EB861152AA9D20051C105 /* PickCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickCategoryTableViewController.h; sourceTree = "<group>"; };
 		9F8EB862152AA9D20051C105 /* PickCategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickCategoryTableViewController.m; sourceTree = "<group>"; };
 		9F969DB2152AE15F0089F3DC /* NewItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewItemViewController.h; sourceTree = "<group>"; };
@@ -124,6 +127,8 @@
 		9FAD024E151D677500D32564 /* Dandan */ = {
 			isa = PBXGroup;
 			children = (
+				9F8E81C7152FF4FB0081FD3E /* UIColor+UIColor_Hex.h */,
+				9F8E81C8152FF4FB0081FD3E /* UIColor+UIColor_Hex.m */,
 				9FAD0257151D677500D32564 /* AppDelegate.h */,
 				9FAD0258151D677500D32564 /* AppDelegate.m */,
 				9FAD025A151D677500D32564 /* MainStoryboard.storyboard */,
@@ -249,6 +254,7 @@
 				9FAD029C151D786900D32564 /* NewListTableViewController.m in Sources */,
 				9F8EB863152AA9D20051C105 /* PickCategoryTableViewController.m in Sources */,
 				9F969DB4152AE15F0089F3DC /* NewItemViewController.m in Sources */,
+				9F8E81C9152FF4FB0081FD3E /* UIColor+UIColor_Hex.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

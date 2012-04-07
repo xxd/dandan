@@ -168,7 +168,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="8vY-wU-n3x">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="yFD-Rn-3hP"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="yFD-Rn-3hP">
+                            <connections>
+                                <action selector="CancelModal:" destination="cop-b1-yPG" id="l7q-rM-0q1"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="eUf-xc-pHr"/>
                     </navigationItem>
                 </viewController>
@@ -379,23 +383,6 @@
             <point key="canvasLocation" x="634" y="-481"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="ListsTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ListsTableViewController.h"/>
-        </class>
-        <class className="NewItemViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NewItemViewController.h"/>
-        </class>
-        <class className="NewListTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NewListTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="CancelModal:"/>
-            </relationships>
-        </class>
-        <class className="PickCategoryTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PickCategoryTableViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

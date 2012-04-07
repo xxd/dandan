@@ -7,7 +7,8 @@
 //
 
 #import "NewItemViewController.h"
-
+#import <QuartzCore/QuartzCore.h>
+#import "UIColor+UIColor_Hex.h"
 #import <MobileCoreServices/UTCoreTypes.h>
 
 @interface NewItemViewController ()
@@ -20,6 +21,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 @synthesize contentTextView, toolbar;
 @synthesize lastChosenMediaType, image, imageView;
 @synthesize changeImageButton, clearImageButton;
+@synthesize items;
 
 - (void)initTextView
 {
@@ -51,7 +53,9 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     UIBarButtonItem *voiceItem = [[UIBarButtonItem alloc] initWithTitle:@"Voice" style:UIBarButtonItemStylePlain target:self action:@selector(handleImage)];
     UIBarButtonItem *songItem  = [[UIBarButtonItem alloc] initWithTitle:@"Song"  style:UIBarButtonItemStylePlain target:self action:@selector(handleImage)];
     
-    NSArray *items = [NSArray arrayWithObjects: imageItem, flexible, geoItem, flexible, voiceItem, flexible, songItem, nil];
+    [imageItem setTag:0];
+    
+    items = [NSMutableArray arrayWithObjects: imageItem, flexible, geoItem, flexible, voiceItem, flexible, songItem, nil];
     
     [self.toolbar setItems:items animated:YES];
 }
@@ -63,32 +67,35 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     [self initToolbar];
     [self initToolbarItems];
     [self registerForKeyboardNotifications];
-    imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 216, 320, 200)];
+    imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 210, 300, 161)];
     [self.view addSubview:self.imageView];
     imageView.hidden = YES;
     imageFrame = imageView.frame;
     
-    changeImageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [changeImageButton setFrame:CGRectMake(0, 0, 72, 30)];
-    [changeImageButton setCenter:CGPointMake(274, 391)];
-    [changeImageButton setTitle:@"更换" forState:UIControlStateNormal];
-    [changeImageButton addTarget:self action:@selector(changeImage) forControlEvents:UIControlEventTouchUpInside];
-    changeImageButton.hidden = YES;
-    [self.view addSubview:changeImageButton];
-    
     clearImageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [clearImageButton setFrame:CGRectMake(0, 0, 72, 30)];
-    [clearImageButton setCenter:CGPointMake(46, 391)];
+    [clearImageButton setFrame:CGRectMake(10, 381, 65, 25)];
     [clearImageButton setTitle:@"删除" forState:UIControlStateNormal];
     [clearImageButton addTarget:self action:@selector(clearImage) forControlEvents:UIControlEventTouchUpInside];
     clearImageButton.hidden = YES;
     [self.view addSubview:clearImageButton];
+    
+    changeImageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [changeImageButton setFrame:CGRectMake(245, 381, 65, 25)];
+    [changeImageButton setTitle:@"更换" forState:UIControlStateNormal];
+    [changeImageButton addTarget:self action:@selector(changeImage) forControlEvents:UIControlEventTouchUpInside];
+    changeImageButton.hidden = YES;
+    [self.view addSubview:changeImageButton];
 }
 
 - (void)clearImage{
     self.imageView.image = nil;
     changeImageButton.hidden = YES;
     clearImageButton.hidden = YES;
+    
+    UIBarButtonItem *imageItem = [[UIBarButtonItem alloc] initWithTitle:@"Image" style:UIBarButtonItemStylePlain target:self action:@selector(handleImage)];
+    [items replaceObjectAtIndex:0 withObject:imageItem];
+    [self.toolbar setItems:items animated:NO];
+    
     [contentTextView becomeFirstResponder];
 }
 
@@ -109,6 +116,10 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 
 #pragma mark -
 #pragma mark Keyboard Notification
+- (IBAction)CancelModal:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)registerForKeyboardNotifications
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -206,13 +217,40 @@ static UIImage *shrinkImage(UIImage *original, CGSize size){
 
 - (void)updateDisplay{
     if ([lastChosenMediaType isEqual:(NSString *)kUTTypeImage]) {
-        float y = self.toolbar.frame.origin.y+self.toolbar.frame.size.height;
-        float height = self.view.frame.size.height-(y+20);
-        self.imageView.frame = CGRectMake(10, y+10, 300, height);
+        
         self.imageView.image = image;
+        
         self.imageView.hidden = NO;
         self.changeImageButton.hidden = NO;
         self.clearImageButton.hidden = NO;
+        
+        UIButton *composeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [composeButton setFrame:CGRectMake(0.0f, 0.0f, 30.0f, 30.0f)];
+        [composeButton addTarget:self action:@selector(handleImage) forControlEvents:UIControlEventTouchUpInside];
+        
+        CALayer *sublayer = [composeButton layer];
+        sublayer.backgroundColor = [UIColor blueColor].CGColor;
+        sublayer.shadowOffset = CGSizeMake(0, 0);
+        sublayer.shadowRadius = 3.0;
+        sublayer.shadowColor = [UIColor blackColor].CGColor;
+        sublayer.shadowOpacity = 0.8;
+        sublayer.frame = CGRectMake(self.view.frame.size.width/2-15, self.view.frame.size.height/2-15,30,30);
+        sublayer.cornerRadius = 15;
+        
+        CALayer *imageLayer = [CALayer layer];
+        imageLayer.frame = sublayer.bounds;
+        imageLayer.cornerRadius = 15.0;
+        imageLayer.contents = (id) image.CGImage;
+        imageLayer.borderWidth = 1;
+        imageLayer.borderColor = [UIColor whiteColorWithAlpha:0.7].CGColor;
+        imageLayer.masksToBounds = YES;
+        [sublayer addSublayer:imageLayer];
+        
+        
+        UIBarButtonItem *composePost = [[UIBarButtonItem alloc] initWithCustomView:composeButton];
+        
+        [items replaceObjectAtIndex:0 withObject:composePost];
+        [self.toolbar setItems:items animated:NO];
     }
 }
 
