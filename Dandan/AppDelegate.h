@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
 
+#define SQLiteFilename    @"dan.sqlite"
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
     sqlite3 *database;
     NSMutableArray *listArray;
+    NSString *databasePath;
 }
 @property (strong, nonatomic) NSMutableArray *listArray;
 

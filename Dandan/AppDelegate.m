@@ -11,6 +11,7 @@
 
 @interface AppDelegate(Private)
 -(void)createEditableCopyofDatabaseIfNeeded;
+-(void)tableExist;
 -(void)initializeDatabase;
 -(void)syncList;
 @end
@@ -21,33 +22,42 @@
 
 -(void)createEditableCopyofDatabaseIfNeeded{
     BOOL success;
-    NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	success = [fileManager fileExistsAtPath:databasePath];
+	if(success) return;
+	NSString *databasePathFromApp = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:SQLiteFilename];
     NSError *error;
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *writeableDBPath = [documentsDirectory stringByAppendingPathComponent:@"dandan.sqlite"];
-    NSLog(@"%@",writeableDBPath);
-    success = [fileManager fileExistsAtPath:writeableDBPath];
-    if (success) return;
-    NSString *defaultDBPath = [[[NSBundle mainBundle] resourcePath]stringByAppendingPathComponent:@"dandan.sqlite"];
-    success = [fileManager copyItemAtPath:defaultDBPath toPath:writeableDBPath error:&error];
+	success = [fileManager copyItemAtPath:databasePathFromApp toPath:databasePath error:&error];
     if (!success) {
         NSAssert1(0, @"Failed to create writable database file with message '%@'.", [error localizedDescription]);
     }
 }
 
+-(void)tableExist{
+    sqlite3_stmt *statementChk;
+    sqlite3_prepare_v2(database, "SELECT name FROM sqlite_master WHERE type='table' AND name='lists';", -1, &statementChk, nil);
+    bool boo = FALSE;
+    if (sqlite3_step(statementChk) == SQLITE_ROW) {
+        boo = TRUE;
+        NSLog(@"exist!");
+    } else {
+        char *errorMsg;
+        const char *createSQL = "create table if not exists lists(id INTEGER, title VARCHAR(255), category_id INTEGER,last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+        if (sqlite3_exec(database, createSQL, NULL, NULL, &errorMsg)==SQLITE_OK) { 
+            NSLog(@"create ok."); 
+        }
+
+    }
+    sqlite3_finalize(statementChk);
+}
+
 -(void)initializeDatabase{    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"dandan.sqlite"];
-    
-    if (sqlite3_open([path UTF8String], &database) == SQLITE_OK) {
+    if (sqlite3_open([databasePath UTF8String], &database) == SQLITE_OK) {
         const char *sql = "SELECT id FROM lists ORDER BY id DESC LIMIT 1";
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 NSInteger primaryKey = sqlite3_column_int(statement, 0);
-                if (!primaryKey) return;
                 NSLog(@"primaryKey：%@",primaryKey);
                 Sync *sync = [[Sync alloc] syncWithList:primaryKey];
                 listArray = [sync copy];
@@ -57,12 +67,12 @@
             listArray = [sync copy];    
         }
         sqlite3_finalize(statement);
-    } else {
+        NSLog(@"listArray包含：%@",listArray);
+        NSLog(@"The content of arry is %i",[listArray count]);  
+    }else{
         sqlite3_close(database);
-        NSAssert1(0, @"Failed to open database with message '%s'.", sqlite3_errmsg(database));
+        NSAssert(0, @"Failed to open database");
     }
-    NSLog(@"listArray包含：%@",listArray);
-    NSLog(@"The content of arry is %i",[listArray count]);  
 }
 
 -(void)syncList{
@@ -117,13 +127,22 @@
     UIImage *uiBarButtonItemSelected = [[UIImage imageNamed:@"uiBarButtonItemSelected"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
     [[UIBarButtonItem appearance] setBackgroundImage:uiBarButtonItemSelected forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
     
+    // SQLite的路径
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    databasePath = [documentsDirectory stringByAppendingPathComponent:SQLiteFilename];
+    
+    // 创建SQLite数据库
     [self createEditableCopyofDatabaseIfNeeded];
+    // 查看table是否存在，不存在创建
+    [self tableExist];
+    // 对比本地和远程表内容
     [self initializeDatabase];
+    // 同步表内容
     [self syncList];
     
     return YES;
 }
-							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
