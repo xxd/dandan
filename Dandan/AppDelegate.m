@@ -53,22 +53,28 @@
 
 -(void)initializeDatabase{    
     if (sqlite3_open([databasePath UTF8String], &database) == SQLITE_OK) {
-        const char *sql = "SELECT id FROM lists ORDER BY id DESC LIMIT 1";
-        sqlite3_stmt *statement;
-        if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
-            while (sqlite3_step(statement) == SQLITE_ROW) {
-                NSInteger primaryKey = sqlite3_column_int(statement, 0);
-                NSLog(@"primaryKey：%@",primaryKey);
-                Sync *sync = [[Sync alloc] syncWithList:primaryKey];
-                listArray = [sync copy];
+        NSArray *tableArray = [NSArray arrayWithObjects:@"list", @"categorie", nil];
+        for ( NSString *table in tableArray ){
+            NSLog( @"table name:%@", table);
+            SEL customSelector = NSSelectorFromString([NSString stringWithFormat:@"syncWith%@", table]);
+            NSString *sql_str = [NSString stringWithFormat:@"SELECT id FROM %@s ORDER BY id DESC LIMIT 1", table];
+            const char *sql = (char *)[sql_str UTF8String];
+            NSLog( @"SQL :%@", sql_str);
+            sqlite3_stmt *statement;
+            
+            if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+                while (sqlite3_step(statement) == SQLITE_ROW) {
+                    NSInteger primaryKey = sqlite3_column_int(statement, 0);
+                    NSLog(@"primaryKey：%i",primaryKey);
+                    
+                    Sync *sync = [[Sync alloc] syncWithList:primaryKey];
+                    listArray = [sync copy];
+                }
             }
-        } else {
-            Sync *sync = [[Sync alloc] syncWithList:0];
-            listArray = [sync copy];    
+            sqlite3_finalize(statement);
+            NSLog(@"listArray包含：%@",listArray);
+            NSLog(@"The content of arry is %i",[listArray count]); 
         }
-        sqlite3_finalize(statement);
-        NSLog(@"listArray包含：%@",listArray);
-        NSLog(@"The content of arry is %i",[listArray count]);  
     }else{
         sqlite3_close(database);
         NSAssert(0, @"Failed to open database");
@@ -135,7 +141,7 @@
     // 创建SQLite数据库
     [self createEditableCopyofDatabaseIfNeeded];
     // 查看table是否存在，不存在创建
-    [self tableExist];
+    //[self tableExist];
     // 对比本地和远程表内容
     [self initializeDatabase];
     // 同步表内容

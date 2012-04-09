@@ -25,7 +25,7 @@
 		4D9FDADC1530889D001BA076 /* DictionaryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FDAC71530821D001BA076 /* DictionaryHelper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4D9FDADD1530889D001BA076 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FDAC91530821D001BA076 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4D9FDADE1530889D001BA076 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FDACB1530821D001BA076 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4DD94704153273EF00DAC370 /* dan.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 4DD94703153273EF00DAC370 /* dan.sqlite */; };
+		4DD9471F1532CEC700DAC370 /* dan.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 4DD9471E1532CEC700DAC370 /* dan.sqlite */; };
 		9F7104CF152B24C0007D15E7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7104CE152B24C0007D15E7 /* MobileCoreServices.framework */; };
 		9F89DFF1153039C400227E11 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F89DFF0153039C400227E11 /* CoreImage.framework */; };
 		9F8E81C9152FF4FB0081FD3E /* UIColor+UIColor_Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8E81C8152FF4FB0081FD3E /* UIColor+UIColor_Hex.m */; };
@@ -93,7 +93,7 @@
 		4D9FDACB1530821D001BA076 /* Reachability.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		4D9FDAD01530882B001BA076 /* Sync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sync.h; sourceTree = "<group>"; };
 		4D9FDAD11530882B001BA076 /* Sync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sync.m; sourceTree = "<group>"; };
-		4DD94703153273EF00DAC370 /* dan.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = dan.sqlite; path = ../dan.sqlite; sourceTree = "<group>"; };
+		4DD9471E1532CEC700DAC370 /* dan.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = dan.sqlite; sourceTree = "<group>"; };
 		9F7104CE152B24C0007D15E7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		9F89DFF0153039C400227E11 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		9F89DFF2153039C900227E11 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -200,6 +200,7 @@
 		9FAD0239151D677500D32564 = {
 			isa = PBXGroup;
 			children = (
+				4DD9471E1532CEC700DAC370 /* dan.sqlite */,
 				9FAD024E151D677500D32564 /* Dandan */,
 				9FAD0247151D677500D32564 /* Frameworks */,
 				9FAD0245151D677500D32564 /* Products */,
@@ -268,7 +269,6 @@
 		9FAD024F151D677500D32564 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4DD94703153273EF00DAC370 /* dan.sqlite */,
 				9FAD0274151D700E00D32564 /* Images */,
 				9FAD0250151D677500D32564 /* Dandan-Info.plist */,
 				9FAD0251151D677500D32564 /* InfoPlist.strings */,
@@ -359,7 +359,7 @@
 				9FAD0287151D703000D32564 /* uiBarBackButtonSelected.png in Resources */,
 				9FAD0288151D703000D32564 /* uiBarBackButtonSelected@2x.png in Resources */,
 				9FAD029E151DA95B00D32564 /* dotLine.png in Resources */,
-				4DD94704153273EF00DAC370 /* dan.sqlite in Resources */,
+				4DD9471F1532CEC700DAC370 /* dan.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
