@@ -70,7 +70,7 @@
                     NSNumber *pk = [NSNumber numberWithInt:primaryKey];
                     NSLog(@"pk：%@",pk);
                     if ([[Sync alloc] respondsToSelector:customSelector]) {
-                        sync = [[Sync alloc] performSelector:customSelector withObject:0];
+                        sync = [[Sync alloc] performSelector:customSelector withObject:pk];
                         //sync = [[Sync alloc] syncWithList:primaryKey];
                         listArray = [sync copy];
                     }

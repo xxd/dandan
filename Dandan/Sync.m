@@ -17,9 +17,11 @@
 
 @synthesize listData,delegate,listsID;
 
--(NSArray *)syncWithList:(NSInteger)listID
+-(NSArray *)syncWithList:(NSNumber *)listID
 {
-    NSString *urlit = [NSString stringWithFormat:@"http://0.0.0.0:3000/lists/%i/sync.json?auth_token=%@",listID,@"gseSYCEtQsqtTXyiDRwa"];
+    int primaryKey = [listID intValue];
+    NSLog(@"%i", primaryKey);
+    NSString *urlit = [NSString stringWithFormat:@"http://0.0.0.0:3000/lists/%i/sync.json?auth_token=%@",primaryKey,@"gseSYCEtQsqtTXyiDRwa"];
     NSLog(@"url: %@",urlit);
     NSURL *freequestionurl = [NSURL URLWithString:urlit];
     ASIHTTPRequest *back = [ASIHTTPRequest requestWithURL:freequestionurl];
