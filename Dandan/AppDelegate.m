@@ -54,7 +54,7 @@
 
 -(void)initializeDatabase{    
     if (sqlite3_open([databasePath UTF8String], &database) == SQLITE_OK) {
-        NSArray *tableArray = [NSArray arrayWithObjects:@"List", @"categorie", nil];
+        NSArray *tableArray = [NSArray arrayWithObjects:@"List", @"Categorie", nil];
         for ( NSString *table in tableArray ){
             NSLog( @"table name:%@", table);
             SEL customSelector = NSSelectorFromString([NSString stringWithFormat:@"syncWith%@:", table]);
@@ -65,7 +65,7 @@
             sqlite3_stmt *statement;
             Sync * sync = [Sync alloc];
             if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
-                while (sqlite3_step(statement) == SQLITE_ROW) {
+                if (sqlite3_step(statement) == SQLITE_ROW) {
                     int primaryKey = sqlite3_column_int(statement, 0);
                     NSLog(@"primaryKey：%i",primaryKey);
                     NSNumber *pk = [NSNumber numberWithInt:primaryKey];
@@ -73,11 +73,13 @@
                     if ([[Sync alloc] respondsToSelector:customSelector]) {
                         sync = [[Sync alloc] performSelector:customSelector withObject:pk];
                         listArray = [sync copy];
-                    }
-                    else {
-                        NSLog(@"## Class does not respond to %s", customSelector);
-                    }
-                                    }
+                    } else {NSLog(@"## Class does not respond to %s", customSelector);}
+                } else {
+                    if ([[Sync alloc] respondsToSelector:customSelector]) {
+                        sync = [[Sync alloc] performSelector:customSelector withObject:0];
+                        listArray = [sync copy];
+                    } else {NSLog(@"## Class does not respond to %s", customSelector);}
+                }
             }
             sqlite3_finalize(statement);
             NSLog(@"listArray包含：%@",listArray);
