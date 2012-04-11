@@ -7,6 +7,7 @@
 //
 
 #import "PickCategoryTableViewController.h"
+#import "LocalSQLiteOperate.h"
 
 @interface PickCategoryTableViewController ()
 
@@ -15,19 +16,19 @@
 @implementation PickCategoryTableViewController
 @synthesize delegate, categories;
 
-- (NSString *) getDBPath {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory , NSUserDomainMask, YES);
-	NSString *documentsDir = [paths objectAtIndex:0];
-	return [documentsDir stringByAppendingPathComponent:@"dan.sqlite"];
+- (void)fillCategoryList{
+    if ([[LocalSQLiteOperate alloc]  respondsToSelector:@selector(getCategoryList)]) 
+    {
+        categories = [[LocalSQLiteOperate alloc]  performSelector:@selector(getCategoryList)];
+    } else {
+        NSLog(@"## Class does not respond to getCategoryList");
+    }
 }
 
-- (void)InitCategoryList{
-
-}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    categories = [NSArray arrayWithObjects:@"Fashion", @"Tech", @"Travel", nil];
+    [self fillCategoryList];
 }
 
 - (void)viewDidUnload
@@ -50,6 +51,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [categories count];
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

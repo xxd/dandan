@@ -189,7 +189,6 @@
     
     // 创建SQLite数据库
     [self createEditableCopyofDatabaseIfNeeded];
-
     // 同步表
     [self initializeDatabase];
 

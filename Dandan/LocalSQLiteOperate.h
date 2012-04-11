@@ -13,6 +13,8 @@
 }
 - (NSString *) getDBPath;
 - (NSInteger)CreateNewList:(sqlite3 *)db listID:(NSNumber *)listID  listTitle:(NSString *)listTitle categoryID:(NSNumber *)categoryID;
+- (NSArray *)getCategoryList;
 -(NSInteger)insertNewTodoIntoDatabase;
+
 
 @end
