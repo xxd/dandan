@@ -18,7 +18,6 @@ static sqlite3_stmt *insert_statement = nil;
 }
 
 - (NSInteger)CreateNewList:(sqlite3 *)db listID:(NSNumber *)listID  listTitle:(NSString *)listTitle categoryID:(NSNumber *)categoryID{
-    //database = db;
     if (sqlite3_open([self.getDBPath UTF8String], &db) == SQLITE_OK) {
         NSLog(@"path:%@",self.getDBPath);
 

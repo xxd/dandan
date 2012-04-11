@@ -114,13 +114,9 @@
     LocalSQLiteOperate *sqliteOperate = [LocalSQLiteOperate alloc];
     NSNumber *listID = @"11";
     NSString * listTitle = self.listNameTextField.text;
-    //NSString * listTitle = @"test11";
     NSNumber *categoryID = @"11";
     NSInteger result = [sqliteOperate CreateNewList:database listID:listID listTitle:listTitle categoryID:categoryID];
     NSLog(@"result %i",result);
-
-//    NSInteger result_test = [sqliteOperate insertNewTodoIntoDatabase];
-//    NSLog(@"result_test %i",result_test);
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

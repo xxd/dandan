@@ -94,7 +94,7 @@
 		4D9FDACB1530821D001BA076 /* Reachability.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		4D9FDAD01530882B001BA076 /* Sync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sync.h; sourceTree = "<group>"; };
 		4D9FDAD11530882B001BA076 /* Sync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sync.m; sourceTree = "<group>"; };
-		4DD9471E1532CEC700DAC370 /* dan.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = dan.sqlite; sourceTree = "<group>"; };
+		4DD9471E1532CEC700DAC370 /* dan.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = dan.sqlite; path = ../dan.sqlite; sourceTree = "<group>"; };
 		4DD947281533DBD900DAC370 /* LocalSQLiteOperate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalSQLiteOperate.h; sourceTree = "<group>"; };
 		4DD947291533DBD900DAC370 /* LocalSQLiteOperate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalSQLiteOperate.m; sourceTree = "<group>"; };
 		9F7104CE152B24C0007D15E7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -203,7 +203,6 @@
 		9FAD0239151D677500D32564 = {
 			isa = PBXGroup;
 			children = (
-				4DD9471E1532CEC700DAC370 /* dan.sqlite */,
 				9FAD024E151D677500D32564 /* Dandan */,
 				9FAD0247151D677500D32564 /* Frameworks */,
 				9FAD0245151D677500D32564 /* Products */,
@@ -274,6 +273,7 @@
 		9FAD024F151D677500D32564 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4DD9471E1532CEC700DAC370 /* dan.sqlite */,
 				9FAD0274151D700E00D32564 /* Images */,
 				9FAD0250151D677500D32564 /* Dandan-Info.plist */,
 				9FAD0251151D677500D32564 /* InfoPlist.strings */,
