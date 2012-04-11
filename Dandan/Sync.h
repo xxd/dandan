@@ -18,10 +18,12 @@
     sqlite3 *database;
     NSDictionary *dictCategory;
     NSArray *listData;
+    NSArray *categoryData;
     NSInteger *listsID;
 }
 
 @property (nonatomic,retain) NSArray *listData;
+@property (nonatomic,retain) NSArray *categoryData;
 @property (nonatomic) NSInteger *listsID;
 @property (nonatomic, weak) id <syncDelegate> delegate;
 

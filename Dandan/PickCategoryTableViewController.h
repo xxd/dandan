@@ -7,13 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <sqlite3.h>
 
 @class PickCategoryTableViewController;
 @protocol pickCategoryTableViewControllerDelegate <NSObject>
 -(void)controller:(PickCategoryTableViewController *)controller didSelectCategory:(NSString *)category;
 @end
 
-@interface PickCategoryTableViewController : UITableViewController
+@interface PickCategoryTableViewController : UITableViewController{
+    sqlite3   *database;
+}
 @property (strong, nonatomic) NSArray *categories;
 @property (nonatomic, weak) id <pickCategoryTableViewControllerDelegate> delegate;
 @end

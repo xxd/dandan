@@ -15,6 +15,7 @@
 -(void)tableExist;
 -(void)initializeDatabase;
 -(void)syncList;
+-(void)syncCategorie;
 @end
 
 @implementation AppDelegate
@@ -58,7 +59,9 @@
         for ( NSString *table in tableArray ){
             NSLog( @"table name:%@", table);
             SEL customSelector = NSSelectorFromString([NSString stringWithFormat:@"syncWith%@:", table]);
-            NSLog( @"SEL:%s", customSelector);
+            NSLog( @"customSelector:%s", customSelector);
+            SEL syncToLiteSel = NSSelectorFromString([NSString stringWithFormat:@"sync%@", table]);
+            NSLog( @"syncToLiteSel:%s", syncToLiteSel);
             NSString *sql_str = [NSString stringWithFormat:@"SELECT id FROM %@s ORDER BY id DESC LIMIT 1", table];
             const char *sql = (char *)[sql_str UTF8String];
             NSLog( @"SQL :%@", sql_str);
@@ -68,21 +71,35 @@
                 if (sqlite3_step(statement) == SQLITE_ROW) {
                     int primaryKey = sqlite3_column_int(statement, 0);
                     NSLog(@"primaryKey：%i",primaryKey);
-                    NSNumber *pk = [NSNumber numberWithInt:primaryKey];
-                    NSLog(@"pk：%@",pk);
                     if ([[Sync alloc] respondsToSelector:customSelector]) {
-                        sync = [[Sync alloc] performSelector:customSelector withObject:pk];
+                        sync = [[Sync alloc] performSelector:customSelector withObject:[NSNumber numberWithInt:primaryKey]];
                         listArray = [sync copy];
-                    } else {NSLog(@"## Class does not respond to %s", customSelector);}
+                        if ([self respondsToSelector:syncToLiteSel]) 
+                        {
+                            [self performSelector:syncToLiteSel];
+                        } else {
+                            NSLog(@"## Class does not respond to %s", syncToLiteSel);
+                        }
+                    } else {
+                        NSLog(@"## Class does not respond to %s", customSelector);
+                    }
                 } else {
                     if ([[Sync alloc] respondsToSelector:customSelector]) {
                         sync = [[Sync alloc] performSelector:customSelector withObject:0];
                         listArray = [sync copy];
-                    } else {NSLog(@"## Class does not respond to %s", customSelector);}
+                        if ([self respondsToSelector:syncToLiteSel]) 
+                        {
+                            [self performSelector:syncToLiteSel];
+                        } else {
+                            NSLog(@"## Class does not respond to %s", syncToLiteSel);
+                        }
+                    } else {
+                        NSLog(@"## Class does not respond to %s", customSelector);
+                    }
                 }
             }
             sqlite3_finalize(statement);
-            NSLog(@"listArray包含：%@",listArray);
+            //NSLog(@"listArray包含：%@",listArray);
             NSLog(@"The content of arry is %i",[listArray count]); 
         }
     }else{
@@ -107,6 +124,28 @@
         listTitle = [listDict objectForKey:@"title"];
         categoryID = [listDict objectForKey:@"category_id"];
         NSString *insertSQL = [NSString stringWithFormat: @"insert into lists (id,title,category_id) values(\"%@\", \"%@\", \"%@\")", listID, listTitle,categoryID];
+        NSLog(@"%@",insertSQL);
+        const char *insert_stmt = [insertSQL UTF8String];
+        if (sqlite3_exec(database, insert_stmt, NULL, NULL, &errorMsg)==SQLITE_OK) { 
+            NSLog(@"insert ok.");
+        }
+	}	
+}
+
+-(void)syncCategorie{
+    NSDictionary *categoryDict;
+    char *errorMsg; 
+    NSInteger categoryID;
+    NSString *categoryName;
+    
+    for(int i = 0; i < [listArray count]; i++){		
+		categoryDict = [listArray objectAtIndex:i];
+        for (id key in categoryDict) {
+            NSLog(@"key:%@, value:%@",key,[categoryDict objectForKey:key]);
+        }
+        categoryID = [categoryDict objectForKey:@"id"];
+        categoryName = [categoryDict objectForKey:@"name"];
+        NSString *insertSQL = [NSString stringWithFormat: @"insert into categories (id,name) values(\"%@\", \"%@\")", categoryID, categoryName];
         NSLog(@"%@",insertSQL);
         const char *insert_stmt = [insertSQL UTF8String];
         if (sqlite3_exec(database, insert_stmt, NULL, NULL, &errorMsg)==SQLITE_OK) { 
@@ -150,13 +189,10 @@
     
     // 创建SQLite数据库
     [self createEditableCopyofDatabaseIfNeeded];
-    // 查看table是否存在，不存在创建
-    //[self tableExist];
-    // 对比本地和远程表内容
+
+    // 同步表
     [self initializeDatabase];
-    // 同步表内容
-    [self syncList];
-    
+
     return YES;
 }
 - (void)applicationWillResignActive:(UIApplication *)application

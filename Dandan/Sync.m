@@ -15,7 +15,7 @@
 
 @implementation Sync
 
-@synthesize listData,delegate,listsID;
+@synthesize listData,delegate,listsID,categoryData;
 
 -(NSArray *)syncWithList:(NSNumber *)listID
 {
@@ -27,10 +27,9 @@
     ASIHTTPRequest *back = [ASIHTTPRequest requestWithURL:freequestionurl];
     [back startSynchronous];
     listData = [[back responseString] objectFromJSONString];
-    NSLog(@"listData: %@",listData);
+    //NSLog(@"listData: %@",listData);
     return listData;
 }
-
 
 -(NSArray *)syncWithCategorie:(NSNumber *)categoryID
 {
@@ -41,9 +40,9 @@
     NSURL *freequestionurl = [NSURL URLWithString:urlit];
     ASIHTTPRequest *back = [ASIHTTPRequest requestWithURL:freequestionurl];
     [back startSynchronous];
-    listData = [[back responseString] objectFromJSONString];
-    NSLog(@"listData: %@",listData);
-    return listData;
+    categoryData = [[back responseString] objectFromJSONString];
+    //NSLog(@"categoryData: %@",categoryData);
+    return categoryData;
 }
 
 -(id)initWithPrimaryKey:(NSInteger)pk{

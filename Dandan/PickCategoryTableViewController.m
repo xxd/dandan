@@ -15,10 +15,18 @@
 @implementation PickCategoryTableViewController
 @synthesize delegate, categories;
 
+- (NSString *) getDBPath {
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory , NSUserDomainMask, YES);
+	NSString *documentsDir = [paths objectAtIndex:0];
+	return [documentsDir stringByAppendingPathComponent:@"dan.sqlite"];
+}
+
+- (void)InitCategoryList{
+
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     categories = [NSArray arrayWithObjects:@"Fashion", @"Tech", @"Travel", nil];
 }
 
