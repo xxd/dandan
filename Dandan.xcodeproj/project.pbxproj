@@ -26,6 +26,7 @@
 		4D9FDADD1530889D001BA076 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FDAC91530821D001BA076 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4D9FDADE1530889D001BA076 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FDACB1530821D001BA076 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4DD9471F1532CEC700DAC370 /* dan.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 4DD9471E1532CEC700DAC370 /* dan.sqlite */; };
+		4DD9472A1533DBD900DAC370 /* LocalSQLiteOperate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD947291533DBD900DAC370 /* LocalSQLiteOperate.m */; };
 		9F7104CF152B24C0007D15E7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7104CE152B24C0007D15E7 /* MobileCoreServices.framework */; };
 		9F89DFF1153039C400227E11 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F89DFF0153039C400227E11 /* CoreImage.framework */; };
 		9F8E81C9152FF4FB0081FD3E /* UIColor+UIColor_Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8E81C8152FF4FB0081FD3E /* UIColor+UIColor_Hex.m */; };
@@ -94,6 +95,8 @@
 		4D9FDAD01530882B001BA076 /* Sync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sync.h; sourceTree = "<group>"; };
 		4D9FDAD11530882B001BA076 /* Sync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sync.m; sourceTree = "<group>"; };
 		4DD9471E1532CEC700DAC370 /* dan.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = dan.sqlite; sourceTree = "<group>"; };
+		4DD947281533DBD900DAC370 /* LocalSQLiteOperate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalSQLiteOperate.h; sourceTree = "<group>"; };
+		4DD947291533DBD900DAC370 /* LocalSQLiteOperate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalSQLiteOperate.m; sourceTree = "<group>"; };
 		9F7104CE152B24C0007D15E7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		9F89DFF0153039C400227E11 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		9F89DFF2153039C900227E11 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -262,6 +265,8 @@
 				9F969DB3152AE15F0089F3DC /* NewItemViewController.m */,
 				4D9FDAD01530882B001BA076 /* Sync.h */,
 				4D9FDAD11530882B001BA076 /* Sync.m */,
+				4DD947281533DBD900DAC370 /* LocalSQLiteOperate.h */,
+				4DD947291533DBD900DAC370 /* LocalSQLiteOperate.m */,
 			);
 			path = Dandan;
 			sourceTree = "<group>";
@@ -391,6 +396,7 @@
 				9F8E81D41530388F0081FD3E /* UIImage+Resizing.m in Sources */,
 				9F8E81D71530392D0081FD3E /* NYXImagesHelper.m in Sources */,
 				4D9FDAD21530882B001BA076 /* Sync.m in Sources */,
+				4DD9472A1533DBD900DAC370 /* LocalSQLiteOperate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
