@@ -68,6 +68,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     [self initToolbar];
     [self initToolbarItems];
     [self registerForKeyboardNotifications];
+    
     imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 210, 300, 161)];
     [self.view addSubview:self.imageView];
     imageView.hidden = YES;
@@ -141,6 +142,15 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     CGRect textViewRect = self.contentTextView.frame;
     textViewRect.size.height = height;
     self.contentTextView.frame = textViewRect;
+    [self recalcImageViewFrame:kbSize.height];
+}
+
+- (void)recalcImageViewFrame:(float) kbHeight{
+    CGRect imageViewFrame = self.imageView.frame;
+    imageViewFrame.origin.y = self.toolbar.frame.origin.y + self.toolbar.frame.size.height + 10;
+    imageViewFrame.size.height = kbHeight - 55;
+    self.imageView.frame = imageViewFrame;
+    NSLog(@"%f, %f, %f, %f", self.imageView.frame.origin.x, self.imageView.frame.origin.y, self.imageView.frame.size.width, self.imageView.frame.size.height);
 }
 
 #pragma mark -
