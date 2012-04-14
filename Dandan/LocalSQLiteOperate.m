@@ -68,6 +68,30 @@ static sqlite3_stmt *selectstmt = nil;
     }
 }
 
+
+//获取Category列表
+- (NSArray *)getList
+{
+    if (sqlite3_open([[self getDBPath] UTF8String], &database) == SQLITE_OK) {
+        // Get the primary key for all books.
+        const char *sql = "SELECT title FROM lists";
+        NSMutableArray *categroyNameArray = [[NSMutableArray alloc] init];
+        if (sqlite3_prepare_v2(database, sql, -1, &selectstmt, NULL) == SQLITE_OK) {
+            while (sqlite3_step(selectstmt) == SQLITE_ROW) {
+                NSString *name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 0)];
+                [categroyNameArray addObject:name];
+                
+                
+            }
+            return categroyNameArray;
+        }
+        sqlite3_finalize(selectstmt);
+    } else {
+        sqlite3_close(database);
+        NSAssert1(0, @"Failed to open database with message '%s'.", sqlite3_errmsg(database));
+    }
+}
+
 //调试用 Debug Only!
 
 -(void)mungeFirst:(NSString**)stringOne andSecond:(NSString**)stringTwo

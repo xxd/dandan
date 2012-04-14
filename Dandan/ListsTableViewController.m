@@ -7,7 +7,7 @@
 //
 
 #import "ListsTableViewController.h"
-
+#import "LocalSQLiteOperate.h"
 @interface ListsTableViewController ()
 
 @end
@@ -15,11 +15,21 @@
 @implementation ListsTableViewController
 @synthesize lists;
 
+- (NSArray *)fillList{
+    if ([[LocalSQLiteOperate alloc]  respondsToSelector:@selector(getList)]) 
+    {
+        lists = [[LocalSQLiteOperate alloc]  performSelector:@selector(getList)];
+    } else {
+        NSLog(@"## Class does not respond to getCategoryList");
+    }
+    
+    return lists;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    lists = [NSArray arrayWithObjects:@"Recommended Apps", @"Useful Notes", nil];
+    [self fillList];
 }
 
 - (void)viewDidUnload
