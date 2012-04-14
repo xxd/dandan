@@ -22,6 +22,8 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 @synthesize contentTextView, toolbar;
 @synthesize lastChosenMediaType, image, imageView;
 @synthesize changeImageButton, clearImageButton;
+@synthesize imagePane;
+@synthesize scaledImage;
 @synthesize items;
 
 - (void)initTextView
@@ -68,28 +70,36 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     [self initToolbar];
     [self initToolbarItems];
     [self registerForKeyboardNotifications];
-    imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 210, 300, 161)];
-    [self.view addSubview:self.imageView];
+    
+    float y = self.toolbar.frame.origin.y + self.toolbar.frame.size.height;
+    float h = self.view.frame.size.height - y;
+    self.imagePane = [[UIView alloc] initWithFrame:CGRectMake(0, y, 320, h)];
+    
+    imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 300, 161)];
     imageView.hidden = YES;
-    imageFrame = imageView.frame;
     
     clearImageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [clearImageButton setFrame:CGRectMake(10, 381, 65, 25)];
     [clearImageButton setTitle:@"删除" forState:UIControlStateNormal];
     [clearImageButton addTarget:self action:@selector(clearImage) forControlEvents:UIControlEventTouchUpInside];
     clearImageButton.hidden = YES;
-    [self.view addSubview:clearImageButton];
+    
     
     changeImageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [changeImageButton setFrame:CGRectMake(245, 381, 65, 25)];
     [changeImageButton setTitle:@"更换" forState:UIControlStateNormal];
     [changeImageButton addTarget:self action:@selector(changeImage) forControlEvents:UIControlEventTouchUpInside];
     changeImageButton.hidden = YES;
-    [self.view addSubview:changeImageButton];
+    
+    [self.imagePane addSubview:self.imageView];
+    [self.imagePane addSubview:clearImageButton];
+    [self.imagePane addSubview:changeImageButton];
+    [self.view addSubview: self.imagePane];
 }
 
 - (void)clearImage{
     self.imageView.image = nil;
+    self.scaledImage = nil;
     changeImageButton.hidden = YES;
     clearImageButton.hidden = YES;
     
@@ -129,24 +139,53 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
                                                object:nil];
 }
 
+- (void)ConsoleLogFrame:(CGRect)frame{
+    NSLog(@"%f, %f, %f, %f", frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
+}
+
 - (void)keyboardWasShown:(NSNotification *)aNotification
 {
     NSDictionary* info = [aNotification userInfo];
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    CGRect aRect = self.toolbar.frame;
-    aRect.origin.y = self.view.frame.size.height - kbSize.height - self.toolbar.frame.size.height;
-    [self.toolbar setFrame:aRect];
-    NSLog(@"Keyboard did change & kb height is: %f",kbSize.height);
-    float height = self.view.frame.size.height - kbSize.height - self.toolbar.frame.size.height - 3.0f;
-    CGRect textViewRect = self.contentTextView.frame;
-    textViewRect.size.height = height;
-    self.contentTextView.frame = textViewRect;
+    CGRect kbFrame = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+
+    CGRect frame;
+    
+    frame = self.toolbar.frame;
+    frame.origin.y =  self.view.frame.size.height - kbFrame.size.height - self.toolbar.frame.size.height;
+    [self.toolbar setFrame:frame];
+    
+    frame = self.contentTextView.frame;
+    frame.size.height = self.view.frame.size.height - kbFrame.size.height - self.toolbar.frame.size.height - 3.0f;
+    [self.contentTextView setFrame:frame];
+    
+    frame = self.imagePane.frame;
+    frame.size.height = kbFrame.size.height;
+    frame.origin.y = self.view.frame.size.height - kbFrame.size.height;
+    [self.imagePane setFrame:frame];
+    
+    frame = self.imageView.frame;
+    frame.size.height = self.imagePane.frame.size.height - 55;
+    [self.imageView setFrame:frame];
+    imageFrame = imageView.frame;
+    
+    frame = self.clearImageButton.frame;
+    frame.origin.y = self.imageView.frame.origin.y + self.imageView.frame.size.height + 10;
+    [self.clearImageButton setFrame:frame];
+    
+    frame = self.changeImageButton.frame;
+    frame.origin.y = self.imageView.frame.origin.y + self.imageView.frame.size.height + 10;
+    [self.changeImageButton setFrame:frame];
+    
+    if (self.scaledImage) {
+        UIImage *cropImage = [self.scaledImage cropToSize:CGSizeMake(600, self.imageView.frame.size.height*2) usingMode:NYXCropModeCenter];
+        self.imageView.image = cropImage;
+    }
 }
 
 #pragma mark -
 #pragma mark Handle Uploaders
 
--(void)handleImage{
+- (void)handleImage{
     [contentTextView resignFirstResponder];
     if (!imageView.image) {
         [self pickPhotoByActionSheet];
@@ -218,8 +257,8 @@ static UIImage *shrinkImage(UIImage *original, CGSize size){
 
 - (void)updateDisplay{
     if ([lastChosenMediaType isEqual:(NSString *)kUTTypeImage]) {
-        UIImage *scaleImage = [image scaleToFitSize:CGSizeMake(600, 600/image.size.width*self.image.size.height)];
-        UIImage *cropImage = [scaleImage cropToSize:CGSizeMake(600, 322) usingMode:NYXCropModeCenter];
+        self.scaledImage = [image scaleToFitSize:CGSizeMake(600, 600/image.size.width*self.image.size.height)];
+        UIImage *cropImage = [self.scaledImage cropToSize:CGSizeMake(600, self.imageView.frame.size.height*2) usingMode:NYXCropModeCenter];
         self.imageView.image = cropImage;
         
         self.imageView.hidden = NO;

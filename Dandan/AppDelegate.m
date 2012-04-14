@@ -199,7 +199,8 @@ static sqlite3_stmt *statementChk = nil;
     // 创建SQLite数据库
     [self createEditableCopyofDatabaseIfNeeded];
     // 同步表
-    [self initializeDatabase];
+    
+    // [self initializeDatabase];
 
     return YES;
 }
