@@ -21,6 +21,8 @@
 @property (strong, nonatomic) UIButton *changeImageButton;
 @property (strong, nonatomic) UIButton *clearImageButton;
 @property (strong, nonatomic) NSMutableArray *items;
+@property (strong, nonatomic) UIView *imagePane;
+@property (strong, nonatomic) UIImage *scaledImage;
 - (IBAction)CancelModal:(id)sender;
 - (void)registerForKeyboardNotifications;
 @end
