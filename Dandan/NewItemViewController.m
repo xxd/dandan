@@ -248,7 +248,6 @@ static UIImage *shrinkImage(UIImage *original, CGSize size){
         imageLayer.masksToBounds = YES;
         [sublayer addSublayer:imageLayer];
         
-        
         UIBarButtonItem *composePost = [[UIBarButtonItem alloc] initWithCustomView:composeButton];
         
         [items replaceObjectAtIndex:0 withObject:composePost];

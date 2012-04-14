@@ -97,6 +97,7 @@
 		4DD9471E1532CEC700DAC370 /* dan.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = dan.sqlite; path = ../dan.sqlite; sourceTree = "<group>"; };
 		4DD947281533DBD900DAC370 /* LocalSQLiteOperate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalSQLiteOperate.h; sourceTree = "<group>"; };
 		4DD947291533DBD900DAC370 /* LocalSQLiteOperate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalSQLiteOperate.m; sourceTree = "<group>"; };
+		4DFC308D15391E54002E2E02 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = ../Constants.h; sourceTree = "<group>"; };
 		9F7104CE152B24C0007D15E7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		9F89DFF0153039C400227E11 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		9F89DFF2153039C900227E11 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -253,6 +254,7 @@
 				9FAD0257151D677500D32564 /* AppDelegate.h */,
 				9FAD0258151D677500D32564 /* AppDelegate.m */,
 				9FAD025A151D677500D32564 /* MainStoryboard.storyboard */,
+				4DFC308D15391E54002E2E02 /* Constants.h */,
 				9FAD024F151D677500D32564 /* Supporting Files */,
 				9FAD0297151D752A00D32564 /* ListsTableViewController.h */,
 				9FAD0298151D752A00D32564 /* ListsTableViewController.m */,

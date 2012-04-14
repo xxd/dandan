@@ -22,11 +22,21 @@
 @synthesize window = _window;
 @synthesize listArray;
 
+
+static sqlite3_stmt *statementChk = nil;
+
+//+(NSString *)sharedInstance
+//{
+//    NSString *SQLiteFilename = @"dan.sqlite";
+//    return SQLiteFilename;
+//}
+
 -(void)createEditableCopyofDatabaseIfNeeded{
     BOOL success;
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	success = [fileManager fileExistsAtPath:databasePath];
 	if(success) return;
+//    NSString * sQLiteFilename = [AppDelegate sharedInstance];
 	NSString *databasePathFromApp = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:SQLiteFilename];
     NSError *error;
 	success = [fileManager copyItemAtPath:databasePathFromApp toPath:databasePath error:&error];
@@ -36,7 +46,7 @@
 }
 
 -(void)tableExist{
-    sqlite3_stmt *statementChk;
+    
     sqlite3_prepare_v2(database, "SELECT name FROM sqlite_master WHERE type='table' AND name='lists';", -1, &statementChk, nil);
     bool boo = FALSE;
     if (sqlite3_step(statementChk) == SQLITE_ROW) {
@@ -48,7 +58,6 @@
         if (sqlite3_exec(database, createSQL, NULL, NULL, &errorMsg)==SQLITE_OK) { 
             NSLog(@"create ok."); 
         }
-
     }
     sqlite3_finalize(statementChk);
 }
@@ -111,9 +120,9 @@
 -(void)syncList{
     NSDictionary *listDict;
     char *errorMsg; 
-    NSInteger listID;
+    NSNumber *listID;
     NSString *listTitle;
-    NSInteger categoryID;
+    NSNumber *categoryID;
     
     for(int i = 0; i < [listArray count]; i++){		
 		listDict = [listArray objectAtIndex:i];

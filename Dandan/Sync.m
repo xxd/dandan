@@ -12,7 +12,7 @@
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
 #import "DictionaryHelper.h"
-
+#import "Constants.h"
 @implementation Sync
 
 @synthesize listData,delegate,listsID,categoryData;
@@ -21,7 +21,7 @@
 {
     int primaryKey = [listID intValue];
     NSLog(@"%i", primaryKey);
-    NSString *urlit = [NSString stringWithFormat:@"http://0.0.0.0:3000/lists/%i/sync.json?auth_token=%@",primaryKey,@"gseSYCEtQsqtTXyiDRwa"];
+    NSString *urlit = [NSString stringWithFormat:@"%@/lists/%i/sync.json?auth_token=%@",BASE_URL,primaryKey,Test_Token];
     NSLog(@"url: %@",urlit);
     NSURL *freequestionurl = [NSURL URLWithString:urlit];
     ASIHTTPRequest *back = [ASIHTTPRequest requestWithURL:freequestionurl];
@@ -35,7 +35,7 @@
 {
     int primaryKey = [categoryID intValue];
     NSLog(@"%i", primaryKey);
-    NSString *urlit = [NSString stringWithFormat:@"http://0.0.0.0:3000/categories/%i/sync.json?auth_token=%@",primaryKey,@"gseSYCEtQsqtTXyiDRwa"];
+    NSString *urlit = [NSString stringWithFormat:@"%@/categories/%i/sync.json?auth_token=%@",BASE_URL,primaryKey,Test_Token];
     NSLog(@"url: %@",urlit);
     NSURL *freequestionurl = [NSURL URLWithString:urlit];
     ASIHTTPRequest *back = [ASIHTTPRequest requestWithURL:freequestionurl];
