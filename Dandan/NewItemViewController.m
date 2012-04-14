@@ -22,7 +22,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 @synthesize contentTextView, toolbar;
 @synthesize lastChosenMediaType, image, imageView;
 @synthesize changeImageButton, clearImageButton;
-@synthesize imagePane;
+@synthesize imagePane, mapPane, voicePane, songPane, openningPane;
 @synthesize scaledImage;
 @synthesize items;
 
