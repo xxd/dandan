@@ -17,5 +17,5 @@
 @property (strong, nonatomic) NSArray *categories;
 @property (nonatomic, weak) id <pickCategoryTableViewControllerDelegate> delegate;
 
-- (void)fillCategoryList;
+- (NSArray *)fillCategoryList;
 @end

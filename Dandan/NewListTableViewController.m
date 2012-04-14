@@ -15,7 +15,7 @@
 @end
 
 @implementation NewListTableViewController
-@synthesize listNameTextField, isShare;
+@synthesize listNameTextField, isShare,categoryIndexID,categoryName;
 
 - (void)viewDidLoad
 {
@@ -111,11 +111,16 @@
 }
 
 - (IBAction)CreateList:(id)sender{
-    LocalSQLiteOperate *sqliteOperate = [LocalSQLiteOperate alloc];
-    NSNumber *listID = @"11";
-    NSString * listTitle = self.listNameTextField.text;
-    NSNumber *categoryID = @"11";
-    NSInteger result = [sqliteOperate CreateNewList:database listID:listID listTitle:listTitle categoryID:categoryID];
+    LocalSQLiteOperate *sqliteOperate = [[LocalSQLiteOperate alloc] init];
+    PickCategoryTableViewController *pickCategoryTableViewController = [[PickCategoryTableViewController alloc]init];
+    NSInteger *categoryID = [pickCategoryTableViewController.fillCategoryList indexOfObject:categoryName];
+    NSString *listTitle = self.listNameTextField.text;    
+    //NSNumber *categoryID = @"11";
+    BOOL share = self.isShare.on;
+    NSLog(share ? @"Yes" : @"No");
+    NSLog(@"categoryIndexID:%i",categoryIndexID);
+    NSLog(@"categoryName:%@",categoryName);
+    NSInteger result = [sqliteOperate CreateNewList:database  listTitle:listTitle categoryID:categoryID isShare:share];
     NSLog(@"result %i",result);
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -123,5 +128,6 @@
 -(void)controller:(PickCategoryTableViewController *)controller didSelectCategory:(NSString *)category{
     UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     cell.detailTextLabel.text = category;
+    categoryName = category;
 }
 @end
