@@ -28,6 +28,7 @@
 @property (strong, nonatomic) UIView *voicePane;
 @property (strong, nonatomic) UIView *songPane;
 
+@property (strong, nonatomic) NSMutableArray *panes;
 @property (strong, nonatomic) UIView *openningPane;
 
 - (IBAction)CancelModal:(id)sender;

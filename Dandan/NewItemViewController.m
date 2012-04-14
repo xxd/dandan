@@ -22,7 +22,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 @synthesize contentTextView, toolbar;
 @synthesize lastChosenMediaType, image, imageView;
 @synthesize changeImageButton, clearImageButton;
-@synthesize imagePane, mapPane, voicePane, songPane, openningPane;
+@synthesize imagePane, mapPane, voicePane, songPane, openningPane, panes;
 @synthesize scaledImage;
 @synthesize items;
 
@@ -53,7 +53,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     
     UIBarButtonItem *imageItem = [[UIBarButtonItem alloc] initWithTitle:@"Image" style:UIBarButtonItemStylePlain target:self action:@selector(handleImage)];
     UIBarButtonItem *geoItem   = [[UIBarButtonItem alloc] initWithTitle:@"Map"   style:UIBarButtonItemStylePlain target:self action:@selector(handleImage)];
-    UIBarButtonItem *voiceItem = [[UIBarButtonItem alloc] initWithTitle:@"Voice" style:UIBarButtonItemStylePlain target:self action:@selector(handleImage)];
+    UIBarButtonItem *voiceItem = [[UIBarButtonItem alloc] initWithTitle:@"Voice" style:UIBarButtonItemStylePlain target:self action:@selector(handleVoice)];
     UIBarButtonItem *songItem  = [[UIBarButtonItem alloc] initWithTitle:@"Song"  style:UIBarButtonItemStylePlain target:self action:@selector(handleImage)];
     
     [imageItem setTag:0];
@@ -73,7 +73,18 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     
     float y = self.toolbar.frame.origin.y + self.toolbar.frame.size.height;
     float h = self.view.frame.size.height - y;
-    self.imagePane = [[UIView alloc] initWithFrame:CGRectMake(0, y, 320, h)];
+    
+    imagePane = [[UIView alloc] initWithFrame:CGRectMake(0, y, 320, h)];
+    mapPane = [[UIView alloc] initWithFrame:CGRectMake(0, y, 320, h)];
+    voicePane = [[UIView alloc] initWithFrame:CGRectMake(0, y, 320, h)];
+    songPane = [[UIView alloc] initWithFrame:CGRectMake(0, y, 320, h)];
+    
+    panes = [NSMutableArray arrayWithObjects:imagePane, mapPane, voicePane, songPane, nil];
+    
+    for (NSInteger i = 0; i < 4; i++) {
+        [[panes objectAtIndex:i] setHidden:YES];
+        [self.view addSubview: [panes objectAtIndex:i]];
+    }
     
     imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 300, 161)];
     imageView.hidden = YES;
@@ -94,7 +105,20 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     [self.imagePane addSubview:self.imageView];
     [self.imagePane addSubview:clearImageButton];
     [self.imagePane addSubview:changeImageButton];
-    [self.view addSubview: self.imagePane];
+    
+    openningPane = imagePane;
+    
+    [self changePane:imagePane];
+}
+
+- (void)changePane:(UIView *)paneView{
+    openningPane.hidden = YES;
+    openningPane = paneView;
+    openningPane.hidden = NO;
+}
+
+- (void)handleVoice{
+    [self changePane:voicePane];
 }
 
 - (void)clearImage{
@@ -187,6 +211,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 
 - (void)handleImage{
     [contentTextView resignFirstResponder];
+    [self changePane:imagePane];
     if (!imageView.image) {
         [self pickPhotoByActionSheet];
     }
