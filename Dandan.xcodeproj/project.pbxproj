@@ -27,6 +27,7 @@
 		4D9FDADE1530889D001BA076 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FDACB1530821D001BA076 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4DD9471F1532CEC700DAC370 /* dan.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 4DD9471E1532CEC700DAC370 /* dan.sqlite */; };
 		4DD9472A1533DBD900DAC370 /* LocalSQLiteOperate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD947291533DBD900DAC370 /* LocalSQLiteOperate.m */; };
+		4DFC30B2153B07FE002E2E02 /* ParkPlaceMark.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DFC30B1153B0676002E2E02 /* ParkPlaceMark.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9F7104CF152B24C0007D15E7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7104CE152B24C0007D15E7 /* MobileCoreServices.framework */; };
 		9F89DFF1153039C400227E11 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F89DFF0153039C400227E11 /* CoreImage.framework */; };
 		9F8E81C9152FF4FB0081FD3E /* UIColor+UIColor_Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8E81C8152FF4FB0081FD3E /* UIColor+UIColor_Hex.m */; };
@@ -98,6 +99,8 @@
 		4DD947281533DBD900DAC370 /* LocalSQLiteOperate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalSQLiteOperate.h; sourceTree = "<group>"; };
 		4DD947291533DBD900DAC370 /* LocalSQLiteOperate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalSQLiteOperate.m; sourceTree = "<group>"; };
 		4DFC308D15391E54002E2E02 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = ../Constants.h; sourceTree = "<group>"; };
+		4DFC30B0153B0676002E2E02 /* ParkPlaceMark.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParkPlaceMark.h; sourceTree = "<group>"; };
+		4DFC30B1153B0676002E2E02 /* ParkPlaceMark.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParkPlaceMark.m; sourceTree = "<group>"; };
 		9F7104CE152B24C0007D15E7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		9F89DFF0153039C400227E11 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		9F89DFF2153039C900227E11 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -268,6 +271,8 @@
 				4D9FDAD11530882B001BA076 /* Sync.m */,
 				4DD947281533DBD900DAC370 /* LocalSQLiteOperate.h */,
 				4DD947291533DBD900DAC370 /* LocalSQLiteOperate.m */,
+				4DFC30B0153B0676002E2E02 /* ParkPlaceMark.h */,
+				4DFC30B1153B0676002E2E02 /* ParkPlaceMark.m */,
 			);
 			path = Dandan;
 			sourceTree = "<group>";
@@ -377,6 +382,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DFC30B2153B07FE002E2E02 /* ParkPlaceMark.m in Sources */,
 				4D9FDAD51530889D001BA076 /* ASIAuthenticationDialog.m in Sources */,
 				4D9FDAD61530889D001BA076 /* ASIDataCompressor.m in Sources */,
 				4D9FDAD71530889D001BA076 /* ASIDataDecompressor.m in Sources */,

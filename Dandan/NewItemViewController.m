@@ -11,6 +11,7 @@
 #import "UIColor+UIColor_Hex.h"
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "UIImage+Resizing.h"
+#import "ParkPlaceMark.h"
 
 @interface NewItemViewController ()
 static UIImage *shrinkImage(UIImage *original, CGSize size);
@@ -24,7 +25,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 @synthesize changeImageButton, clearImageButton;
 @synthesize imagePane;
 @synthesize scaledImage;
-@synthesize items;
+@synthesize items,ShowMyLocationButton,ClearMyLocationButton;
 
 - (void)initTextView
 {
@@ -52,7 +53,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     UIBarButtonItem *flexible = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
     UIBarButtonItem *imageItem = [[UIBarButtonItem alloc] initWithTitle:@"Image" style:UIBarButtonItemStylePlain target:self action:@selector(handleImage)];
-    UIBarButtonItem *geoItem   = [[UIBarButtonItem alloc] initWithTitle:@"Map"   style:UIBarButtonItemStylePlain target:self action:@selector(handleImage)];
+    UIBarButtonItem *geoItem   = [[UIBarButtonItem alloc] initWithTitle:@"Map"   style:UIBarButtonItemStylePlain target:self action:@selector(handleLocation)];
     UIBarButtonItem *voiceItem = [[UIBarButtonItem alloc] initWithTitle:@"Voice" style:UIBarButtonItemStylePlain target:self action:@selector(handleImage)];
     UIBarButtonItem *songItem  = [[UIBarButtonItem alloc] initWithTitle:@"Song"  style:UIBarButtonItemStylePlain target:self action:@selector(handleImage)];
     
@@ -83,7 +84,6 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     [clearImageButton setTitle:@"删除" forState:UIControlStateNormal];
     [clearImageButton addTarget:self action:@selector(clearImage) forControlEvents:UIControlEventTouchUpInside];
     clearImageButton.hidden = YES;
-    
     
     changeImageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [changeImageButton setFrame:CGRectMake(245, 381, 65, 25)];
@@ -183,10 +183,125 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 }
 
 #pragma mark -
+#pragma mark Location
+
+- (void)handleLocation{
+    [contentTextView resignFirstResponder];
+    imageView.hidden = YES;
+    
+    float y = self.toolbar.frame.origin.y + self.toolbar.frame.size.height;
+    float h = self.view.frame.size.height - y;
+    mapView = [[MKMapView alloc]initWithFrame:CGRectMake(10, y+20, 300, h-60)];
+    
+    ClearMyLocationButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [ClearMyLocationButton setFrame:CGRectMake(10, 381, 65, 25)];
+    [ClearMyLocationButton setTitle:@"清除" forState:UIControlStateNormal];
+    [ClearMyLocationButton addTarget:self action:@selector(ClearMyLocation) forControlEvents:UIControlEventTouchUpInside];
+    ClearMyLocationButton.hidden = NO;
+    
+    ShowMyLocationButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [ShowMyLocationButton setFrame:CGRectMake(245, 381, 65, 25)];
+    [ShowMyLocationButton setTitle:@"位置" forState:UIControlStateNormal];
+    [ShowMyLocationButton addTarget:self action:@selector(showMyLocation) forControlEvents:UIControlEventTouchUpInside];
+    ShowMyLocationButton.hidden = NO;
+    
+    [self.view addSubview:ClearMyLocationButton];
+    [self.view addSubview:ShowMyLocationButton];
+    
+//    mapView.showsUserLocation=TRUE;
+//    mapView.delegate=self;
+//
+//    CLLocationManager *locationManager=[[CLLocationManager alloc] init];
+//    locationManager.delegate=self;
+//    locationManager.desiredAccuracy=kCLLocationAccuracyNearestTenMeters;
+//    
+//    [locationManager startUpdatingLocation];
+//    [self.view insertSubview:mapView atIndex:0];
+    
+    mapView.showsUserLocation=YES;
+    
+    CLLocationManager *locationManager = [[CLLocationManager alloc] init];//创建位置管理器
+    locationManager.delegate=self;//设置代理
+    locationManager.desiredAccuracy=kCLLocationAccuracyBest;//指定需要的精度级别
+    locationManager.distanceFilter=1000.0f;//设置距离筛选器
+    [locationManager startUpdatingLocation];//启动位置管理器
+    MKCoordinateSpan theSpan;
+    //地图的范围 越小越精确
+    theSpan.latitudeDelta=0.05;
+    theSpan.longitudeDelta=0.05;
+    MKCoordinateRegion theRegion;
+    theRegion.center=[[locationManager location] coordinate];
+    theRegion.span=theSpan;
+    [mapView setRegion:theRegion];
+    [self.view insertSubview:mapView atIndex:0];
+}
+
+- (void) showMyLocation{
+	ParkPlaceMark *placemark=[[ParkPlaceMark alloc] initWithCoordinate:location];
+	[mapView addAnnotation:placemark];
+}
+
+- (void) ClearMyLocation{
+	//[mapView removeAnnotations:mapView.annotations];
+}
+
+//- (void)locationManager:(CLLocationManager *)manager 
+//    didUpdateToLocation:(CLLocation *)newLocation 
+//           fromLocation:(CLLocation *)oldLocation{
+//	location = newLocation.coordinate;
+//	//One location is obtained.. just zoom to that location
+//	
+//    [currentLocation stopUpdatingLocation];	
+//	location.latitude = newLocation.coordinate.latitude;
+//	location.longitude = newLocation.coordinate.longitude;
+//    
+//	MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location, 0.5, 0.5);
+//    region.center=location;
+//	//Set Zoom level using Span
+//	MKCoordinateSpan span;
+//	span.latitudeDelta=1;
+//	span.longitudeDelta=1;
+//	region.span=span;
+//	
+//	[mapView setRegion:region animated:TRUE];
+//}
+
+- (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error{
+}
+
+- (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)placemark{
+	NSLog(@"Geocoder completed");
+	mPlacemark=placemark;
+	[mapView addAnnotation:placemark];
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView 
+            viewForAnnotation:(id <MKAnnotation>)annotation{
+	NSLog(@"View for Annotation is called");
+	MKPinAnnotationView *test=[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"parkingloc"];
+	test.userInteractionEnabled=TRUE;
+	if([annotation title]==@"Parked Location")
+	{
+		NSLog(@"Here");
+		[test setPinColor:MKPinAnnotationColorPurple];
+	}
+	else
+	{
+		[test setPinColor:MKPinAnnotationColorGreen];
+	}
+	return test;
+}
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error 
+{	
+	[currentLocation stopUpdatingLocation];
+}
+
+#pragma mark -
 #pragma mark Handle Uploaders
 
 - (void)handleImage{
     [contentTextView resignFirstResponder];
+    mapView.hidden = YES;
     if (!imageView.image) {
         [self pickPhotoByActionSheet];
     }
