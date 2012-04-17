@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D9B60C2153BF48900E2C5EA /* MyAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9B60C1153BF48900E2C5EA /* MyAnnotation.m */; };
 		4D9FDAA615308035001BA076 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9FDAA515308035001BA076 /* libsqlite3.0.dylib */; };
 		4D9FDAAD1530807C001BA076 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9FDAA81530807C001BA076 /* CFNetwork.framework */; };
 		4D9FDAAE1530807C001BA076 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9FDAA91530807C001BA076 /* CoreFoundation.framework */; };
@@ -28,6 +29,7 @@
 		4DD9471F1532CEC700DAC370 /* dan.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 4DD9471E1532CEC700DAC370 /* dan.sqlite */; };
 		4DD9472A1533DBD900DAC370 /* LocalSQLiteOperate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD947291533DBD900DAC370 /* LocalSQLiteOperate.m */; };
 		4DFC30B2153B07FE002E2E02 /* ParkPlaceMark.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DFC30B1153B0676002E2E02 /* ParkPlaceMark.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4DFC30B8153BC20F002E2E02 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DFC30B7153BC20F002E2E02 /* pin.png */; };
 		9F7104CF152B24C0007D15E7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F7104CE152B24C0007D15E7 /* MobileCoreServices.framework */; };
 		9F89DFF1153039C400227E11 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F89DFF0153039C400227E11 /* CoreImage.framework */; };
 		9F8E81C9152FF4FB0081FD3E /* UIColor+UIColor_Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8E81C8152FF4FB0081FD3E /* UIColor+UIColor_Hex.m */; };
@@ -61,6 +63,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D9B60C0153BF48900E2C5EA /* MyAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAnnotation.h; sourceTree = "<group>"; };
+		4D9B60C1153BF48900E2C5EA /* MyAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAnnotation.m; sourceTree = "<group>"; };
 		4D9FDAA515308035001BA076 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		4D9FDAA81530807C001BA076 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		4D9FDAA91530807C001BA076 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -101,6 +105,7 @@
 		4DFC308D15391E54002E2E02 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = ../Constants.h; sourceTree = "<group>"; };
 		4DFC30B0153B0676002E2E02 /* ParkPlaceMark.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParkPlaceMark.h; sourceTree = "<group>"; };
 		4DFC30B1153B0676002E2E02 /* ParkPlaceMark.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParkPlaceMark.m; sourceTree = "<group>"; };
+		4DFC30B7153BC20F002E2E02 /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
 		9F7104CE152B24C0007D15E7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		9F89DFF0153039C400227E11 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		9F89DFF2153039C900227E11 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -273,6 +278,8 @@
 				4DD947291533DBD900DAC370 /* LocalSQLiteOperate.m */,
 				4DFC30B0153B0676002E2E02 /* ParkPlaceMark.h */,
 				4DFC30B1153B0676002E2E02 /* ParkPlaceMark.m */,
+				4D9B60C0153BF48900E2C5EA /* MyAnnotation.h */,
+				4D9B60C1153BF48900E2C5EA /* MyAnnotation.m */,
 			);
 			path = Dandan;
 			sourceTree = "<group>";
@@ -280,6 +287,7 @@
 		9FAD024F151D677500D32564 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4DFC30B7153BC20F002E2E02 /* pin.png */,
 				4DD9471E1532CEC700DAC370 /* dan.sqlite */,
 				9FAD0274151D700E00D32564 /* Images */,
 				9FAD0250151D677500D32564 /* Dandan-Info.plist */,
@@ -372,6 +380,7 @@
 				9FAD0288151D703000D32564 /* uiBarBackButtonSelected@2x.png in Resources */,
 				9FAD029E151DA95B00D32564 /* dotLine.png in Resources */,
 				4DD9471F1532CEC700DAC370 /* dan.sqlite in Resources */,
+				4DFC30B8153BC20F002E2E02 /* pin.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +414,7 @@
 				9F8E81D71530392D0081FD3E /* NYXImagesHelper.m in Sources */,
 				4D9FDAD21530882B001BA076 /* Sync.m in Sources */,
 				4DD9472A1533DBD900DAC370 /* LocalSQLiteOperate.m in Sources */,
+				4D9B60C2153BF48900E2C5EA /* MyAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

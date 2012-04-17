@@ -13,12 +13,10 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface NewItemViewController : UIViewController
-<UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MKMapViewDelegate, MKReverseGeocoderDelegate,CLLocationManagerDelegate>{
+<UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MKMapViewDelegate, MKReverseGeocoderDelegate,CLLocationManagerDelegate,MKAnnotation>
+{
     CGRect imageFrame;
-    MKMapView *mapView;
-    CLLocationCoordinate2D location;
     MKPlacemark *mPlacemark;
-    CLLocationManager *currentLocation;
 }
 @property (strong, nonatomic) UITextView *contentTextView;
 @property (strong, nonatomic) UIToolbar *toolbar;
@@ -27,12 +25,21 @@
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UIButton *changeImageButton;
 @property (strong, nonatomic) UIButton *clearImageButton;
-@property (strong, nonatomic) UIButton *ShowMyLocationButton;
-@property (strong, nonatomic) UIButton *ClearMyLocationButton;
 @property (strong, nonatomic) NSMutableArray *items;
 @property (strong, nonatomic) UIView *imagePane;
 @property (strong, nonatomic) UIImage *scaledImage;
 
+@property (strong, nonatomic) MKMapView *mapView; //显示map
+@property (strong, nonatomic) CLLocationManager *myLocationManager; //获取long和lat
+@property (readonly, nonatomic) CLLocationCoordinate2D coordinate;//以前叫的location
+@property (nonatomic, copy, readonly) NSString *title; 
+@property (nonatomic, copy, readonly) NSString *subtitle;
+@property (strong, nonatomic) UIView *mapPane;
+@property (strong, nonatomic) UIButton *ShowMyLocationButton;
+@property (strong, nonatomic) UIButton *ClearMyLocationButton;
+
 - (IBAction)CancelModal:(id)sender;
 - (void)registerForKeyboardNotifications;
+
+- (id) initWithCoordinates:(CLLocationCoordinate2D)paramCoordinates title:(NSString *)paramTitle subTitle:(NSString *)paramSubTitle;
 @end

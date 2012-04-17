@@ -12,6 +12,7 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "UIImage+Resizing.h"
 #import "ParkPlaceMark.h"
+#import "MyAnnotation.h"
 
 @interface NewItemViewController ()
 static UIImage *shrinkImage(UIImage *original, CGSize size);
@@ -25,8 +26,8 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 @synthesize changeImageButton, clearImageButton;
 @synthesize imagePane;
 @synthesize scaledImage;
-@synthesize items,ShowMyLocationButton,ClearMyLocationButton;
-
+@synthesize items;
+@synthesize mapView,myLocationManager,coordinate,mapPane,ShowMyLocationButton,ClearMyLocationButton,title,subtitle;
 - (void)initTextView
 {
 	contentTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, 200)];
@@ -188,10 +189,12 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 - (void)handleLocation{
     [contentTextView resignFirstResponder];
     imageView.hidden = YES;
+    imagePane.hidden = YES;
     
     float y = self.toolbar.frame.origin.y + self.toolbar.frame.size.height;
     float h = self.view.frame.size.height - y;
-    mapView = [[MKMapView alloc]initWithFrame:CGRectMake(10, y+20, 300, h-60)];
+    self.mapPane = [[UIView alloc] initWithFrame:CGRectMake(0, y, 320, h)];
+    mapView =[[MKMapView alloc]initWithFrame:CGRectMake(10, y+20, 300, h-60)];
     
     ClearMyLocationButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [ClearMyLocationButton setFrame:CGRectMake(10, 381, 65, 25)];
@@ -208,71 +211,87 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     [self.view addSubview:ClearMyLocationButton];
     [self.view addSubview:ShowMyLocationButton];
     
-//    mapView.showsUserLocation=TRUE;
-//    mapView.delegate=self;
-//
-//    CLLocationManager *locationManager=[[CLLocationManager alloc] init];
-//    locationManager.delegate=self;
-//    locationManager.desiredAccuracy=kCLLocationAccuracyNearestTenMeters;
-//    
-//    [locationManager startUpdatingLocation];
+    mapView.showsUserLocation=YES;
+    mapView.mapType = MKMapTypeStandard;
+    
+    //*********下面delegate会自动调用的MKMapViewDelegate的- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation方法
+    mapView.delegate = self;
+    
+    //mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 //    [self.view insertSubview:mapView atIndex:0];
     
-    mapView.showsUserLocation=YES;
+    //*********下面delegate会调用- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+    if ([CLLocationManager locationServicesEnabled]){ 
+        self.myLocationManager = [[CLLocationManager alloc] init]; 
+        self.myLocationManager.delegate = self;
+        self.myLocationManager.purpose = @"To provide functionality based on user's current location.";
+        [self.myLocationManager startUpdatingLocation];
+    } else {
+        NSLog(@"Location services are not enabled");
+    }
     
-    CLLocationManager *locationManager = [[CLLocationManager alloc] init];//创建位置管理器
-    locationManager.delegate=self;//设置代理
-    locationManager.desiredAccuracy=kCLLocationAccuracyBest;//指定需要的精度级别
-    locationManager.distanceFilter=1000.0f;//设置距离筛选器
-    [locationManager startUpdatingLocation];//启动位置管理器
-    MKCoordinateSpan theSpan;
-    //地图的范围 越小越精确
-    theSpan.latitudeDelta=0.05;
-    theSpan.longitudeDelta=0.05;
-    MKCoordinateRegion theRegion;
-    theRegion.center=[[locationManager location] coordinate];
-    theRegion.span=theSpan;
-    [mapView setRegion:theRegion];
-    [self.view insertSubview:mapView atIndex:0];
+//    CLLocationCoordinate2D location = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);
+//    MyAnnotation *annotation = [[MyAnnotation alloc] initWithCoordinates:location 
+//                                                                   title:@"My Title"
+//                                                                subTitle:@"My Sub Title"];
+//    /* And eventually add it to the map */ 
+//    [self.mapView addAnnotation:annotation];
+
+    [self.view addSubview:self.mapView];
+    
+//    [self.mapPane addSubview:mapView];
+//    [self.mapPane insertSubview:mapView atIndex:0];
+//    [self.mapPane addSubview:ClearMyLocationButton];
+//    [self.mapPane addSubview:ShowMyLocationButton];
+//    [self.view addSubview: self.mapPane];
+    //[self.mapPane insertSubview:mapView atIndex:self.view.subviews.count];
+    NSLog(@"view.subviews.count:%i",self.view.subviews.count);
 }
 
 - (void) showMyLocation{
-	ParkPlaceMark *placemark=[[ParkPlaceMark alloc] initWithCoordinate:location];
+	ParkPlaceMark *placemark=[[ParkPlaceMark alloc] initWithCoordinate:coordinate];
 	[mapView addAnnotation:placemark];
 }
 
 - (void) ClearMyLocation{
-	//[mapView removeAnnotations:mapView.annotations];
+	[mapView removeAnnotations:mapView.annotations];
 }
 
-//- (void)locationManager:(CLLocationManager *)manager 
-//    didUpdateToLocation:(CLLocation *)newLocation 
-//           fromLocation:(CLLocation *)oldLocation{
-//	location = newLocation.coordinate;
-//	//One location is obtained.. just zoom to that location
-//	
-//    [currentLocation stopUpdatingLocation];	
-//	location.latitude = newLocation.coordinate.latitude;
-//	location.longitude = newLocation.coordinate.longitude;
-//    
-//	MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location, 0.5, 0.5);
-//    region.center=location;
-//	//Set Zoom level using Span
-//	MKCoordinateSpan span;
-//	span.latitudeDelta=1;
-//	span.longitudeDelta=1;
-//	region.span=span;
-//	
-//	[mapView setRegion:region animated:TRUE];
-//}
+- (void)locationManager:(CLLocationManager *)manager 
+    didUpdateToLocation:(CLLocation *)newLocation 
+           fromLocation:(CLLocation *)oldLocation{
+    coordinate = newLocation.coordinate;
+    
+    [myLocationManager stopUpdatingLocation];	
+	coordinate.latitude = newLocation.coordinate.latitude;
+	coordinate.longitude = newLocation.coordinate.longitude;
+    
+    NSLog(@"Latitude = %f", newLocation.coordinate.latitude); 
+    NSLog(@"Longitude = %f", newLocation.coordinate.longitude);
+   
+	MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coordinate, 0.5, 0.5);
+    region.center=coordinate;
 
-- (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error{
+    MKCoordinateSpan span;
+    span.latitudeDelta=0.005;
+    span.longitudeDelta=0.005;
+	region.span=span;
+	
+	[mapView setRegion:region animated:TRUE];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error 
+{	
+	[myLocationManager stopUpdatingLocation];
 }
 
 - (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)placemark{
 	NSLog(@"Geocoder completed");
 	mPlacemark=placemark;
 	[mapView addAnnotation:placemark];
+}
+
+- (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error{
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView 
@@ -287,14 +306,11 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 	}
 	else
 	{
-		[test setPinColor:MKPinAnnotationColorGreen];
+		[test setPinColor:MKPinAnnotationColorPurple];
 	}
 	return test;
 }
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error 
-{	
-	[currentLocation stopUpdatingLocation];
-}
+
 
 #pragma mark -
 #pragma mark Handle Uploaders
@@ -303,6 +319,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     [contentTextView resignFirstResponder];
     mapView.hidden = YES;
     if (!imageView.image) {
+        imageView.hidden = NO;
         [self pickPhotoByActionSheet];
     }
 }
