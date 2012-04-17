@@ -27,7 +27,8 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 @synthesize imagePane, mapPane, voicePane, songPane, openningPane, panes;
 @synthesize scaledImage;
 @synthesize items;
-@synthesize mapView,myLocationManager,coordinate,mapPane,ShowMyLocationButton,ClearMyLocationButton,title,subtitle;
+@synthesize mapView, myLocationManager, coordinate, currentLocationButton, clearLocationButton, title, subtitle;
+
 - (void)initTextView
 {
 	contentTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, 200)];
@@ -54,7 +55,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     UIBarButtonItem *flexible = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
     UIBarButtonItem *imageItem = [[UIBarButtonItem alloc] initWithTitle:@"Image" style:UIBarButtonItemStylePlain target:self action:@selector(handleImage)];
-    UIBarButtonItem *geoItem   = [[UIBarButtonItem alloc] initWithTitle:@"Map"   style:UIBarButtonItemStylePlain target:self action:@selector(handleImage)];
+    UIBarButtonItem *geoItem   = [[UIBarButtonItem alloc] initWithTitle:@"Map"   style:UIBarButtonItemStylePlain target:self action:@selector(handleLocation)];
     UIBarButtonItem *voiceItem = [[UIBarButtonItem alloc] initWithTitle:@"Voice" style:UIBarButtonItemStylePlain target:self action:@selector(handleVoice)];
     UIBarButtonItem *songItem  = [[UIBarButtonItem alloc] initWithTitle:@"Song"  style:UIBarButtonItemStylePlain target:self action:@selector(handleImage)];
     
@@ -186,7 +187,10 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     frame = self.imagePane.frame;
     frame.size.height = kbFrame.size.height;
     frame.origin.y = self.view.frame.size.height - kbFrame.size.height;
-    [self.imagePane setFrame:frame];
+    
+    for (NSInteger i = 0; i < 4; i++) {
+        [[panes objectAtIndex:i] setFrame:frame];
+    }
     
     frame = self.imageView.frame;
     frame.size.height = self.imagePane.frame.size.height - 55;
@@ -201,6 +205,19 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     frame.origin.y = self.imageView.frame.origin.y + self.imageView.frame.size.height + 10;
     [self.changeImageButton setFrame:frame];
     
+    // mapView
+    frame = self.mapView.frame;
+    frame.size.height = self.mapPane.frame.size.height - 55;
+    [self.mapView setFrame:frame];
+    
+    frame = self.clearLocationButton.frame;
+    frame.origin.y = self.mapView.frame.origin.y + self.mapView.frame.size.height + 10;
+    [self.clearLocationButton setFrame:frame];
+    
+    frame = self.currentLocationButton.frame;
+    frame.origin.y = self.mapView.frame.origin.y + self.mapView.frame.size.height + 10;
+    [self.currentLocationButton setFrame:frame];
+    
     if (self.scaledImage) {
         UIImage *cropImage = [self.scaledImage cropToSize:CGSizeMake(600, self.imageView.frame.size.height*2) usingMode:NYXCropModeCenter];
         self.imageView.image = cropImage;
@@ -212,94 +229,65 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 
 - (void)handleLocation{
     [contentTextView resignFirstResponder];
-    imageView.hidden = YES;
-    imagePane.hidden = YES;
+    [self changePane:mapPane];
     
-    float y = self.toolbar.frame.origin.y + self.toolbar.frame.size.height;
-    float h = self.view.frame.size.height - y;
-    self.mapPane = [[UIView alloc] initWithFrame:CGRectMake(0, y, 320, h)];
-    mapView =[[MKMapView alloc]initWithFrame:CGRectMake(10, y+20, 300, h-60)];
-    
-    ClearMyLocationButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [ClearMyLocationButton setFrame:CGRectMake(10, 381, 65, 25)];
-    [ClearMyLocationButton setTitle:@"清除" forState:UIControlStateNormal];
-    [ClearMyLocationButton addTarget:self action:@selector(ClearMyLocation) forControlEvents:UIControlEventTouchUpInside];
-    ClearMyLocationButton.hidden = NO;
-    
-    ShowMyLocationButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [ShowMyLocationButton setFrame:CGRectMake(245, 381, 65, 25)];
-    [ShowMyLocationButton setTitle:@"位置" forState:UIControlStateNormal];
-    [ShowMyLocationButton addTarget:self action:@selector(showMyLocation) forControlEvents:UIControlEventTouchUpInside];
-    ShowMyLocationButton.hidden = NO;
-    
-    [self.view addSubview:ClearMyLocationButton];
-    [self.view addSubview:ShowMyLocationButton];
-    
-    mapView.showsUserLocation=YES;
-    mapView.mapType = MKMapTypeStandard;
-    
-    //*********下面delegate会自动调用的MKMapViewDelegate的- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation方法
-    mapView.delegate = self;
-    
-    //mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//    [self.view insertSubview:mapView atIndex:0];
-    
-    //*********下面delegate会调用- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
-    if ([CLLocationManager locationServicesEnabled]){ 
-        self.myLocationManager = [[CLLocationManager alloc] init]; 
-        self.myLocationManager.delegate = self;
-        self.myLocationManager.purpose = @"To provide functionality based on user's current location.";
-        [self.myLocationManager startUpdatingLocation];
-    } else {
-        NSLog(@"Location services are not enabled");
+    if (!mapView) {
+        mapView =[[MKMapView alloc] initWithFrame:CGRectMake(10, 10, 300, self.mapPane.frame.size.height - 55)];
+        
+        mapView.showsUserLocation = YES;
+        mapView.mapType = MKMapTypeStandard;
+        
+        mapView.delegate = self;
+        
+        if ([CLLocationManager locationServicesEnabled]){ 
+            self.myLocationManager = [[CLLocationManager alloc] init];
+            self.myLocationManager.delegate = self;
+            self.myLocationManager.purpose = @"To provide functionality based on user's current location.";
+            [self.myLocationManager startUpdatingLocation];
+        } else {
+            NSLog(@"Location services are not enabled");
+        }
+        
+        clearLocationButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [clearLocationButton setFrame:CGRectMake(10, self.mapView.frame.size.height + 20, 65, 25)];
+        [clearLocationButton setTitle:@"清除" forState:UIControlStateNormal];
+        [clearLocationButton addTarget:self action:@selector(clearAnnotations) forControlEvents:UIControlEventTouchUpInside];
+        
+        currentLocationButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [currentLocationButton setFrame:CGRectMake(245, self.mapView.frame.size.height + 20, 65, 25)];
+        [currentLocationButton setTitle:@"位置" forState:UIControlStateNormal];
+        [currentLocationButton addTarget:self action:@selector(currentLocation) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.mapPane addSubview:self.mapView];
+        [self.mapPane addSubview:clearLocationButton];
+        [self.mapPane addSubview:currentLocationButton];
     }
     
-//    CLLocationCoordinate2D location = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);
-//    MyAnnotation *annotation = [[MyAnnotation alloc] initWithCoordinates:location 
-//                                                                   title:@"My Title"
-//                                                                subTitle:@"My Sub Title"];
-//    /* And eventually add it to the map */ 
-//    [self.mapView addAnnotation:annotation];
-
-    [self.view addSubview:self.mapView];
-    
-//    [self.mapPane addSubview:mapView];
-//    [self.mapPane insertSubview:mapView atIndex:0];
-//    [self.mapPane addSubview:ClearMyLocationButton];
-//    [self.mapPane addSubview:ShowMyLocationButton];
-//    [self.view addSubview: self.mapPane];
-    //[self.mapPane insertSubview:mapView atIndex:self.view.subviews.count];
-    NSLog(@"view.subviews.count:%i",self.view.subviews.count);
 }
 
-- (void) showMyLocation{
+- (void) currentLocation{
 	ParkPlaceMark *placemark=[[ParkPlaceMark alloc] initWithCoordinate:coordinate];
 	[mapView addAnnotation:placemark];
 }
 
-- (void) ClearMyLocation{
+- (void) clearAnnotations{
 	[mapView removeAnnotations:mapView.annotations];
 }
 
-- (void)locationManager:(CLLocationManager *)manager 
-    didUpdateToLocation:(CLLocation *)newLocation 
-           fromLocation:(CLLocation *)oldLocation{
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
     coordinate = newLocation.coordinate;
     
     [myLocationManager stopUpdatingLocation];	
 	coordinate.latitude = newLocation.coordinate.latitude;
 	coordinate.longitude = newLocation.coordinate.longitude;
-    
-    NSLog(@"Latitude = %f", newLocation.coordinate.latitude); 
-    NSLog(@"Longitude = %f", newLocation.coordinate.longitude);
-   
+       
 	MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coordinate, 0.5, 0.5);
-    region.center=coordinate;
+    region.center = coordinate;
 
     MKCoordinateSpan span;
-    span.latitudeDelta=0.005;
-    span.longitudeDelta=0.005;
-	region.span=span;
+    span.latitudeDelta = 0.005;
+    span.longitudeDelta = 0.005;
+	region.span = span;
 	
 	[mapView setRegion:region animated:TRUE];
 }
@@ -310,8 +298,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 }
 
 - (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)placemark{
-	NSLog(@"Geocoder completed");
-	mPlacemark=placemark;
+	mPlacemark = placemark;
 	[mapView addAnnotation:placemark];
 }
 

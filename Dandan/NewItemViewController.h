@@ -29,15 +29,21 @@
 @property (strong, nonatomic) UIImage *scaledImage;
 
 @property (strong, nonatomic) UIView *imagePane;
+
+@property (strong, nonatomic) MKMapView *mapView; //显示map
+@property (strong, nonatomic) CLLocationManager *myLocationManager; //获取long和lat
+@property (readonly, nonatomic) CLLocationCoordinate2D coordinate;//以前叫的location
+@property (nonatomic, copy, readonly) NSString *title;
+@property (nonatomic, copy, readonly) NSString *subtitle;
 @property (strong, nonatomic) UIView *mapPane;
 @property (strong, nonatomic) UIView *voicePane;
 @property (strong, nonatomic) UIView *songPane;
+@property (strong, nonatomic) UIButton *currentLocationButton;
+@property (strong, nonatomic) UIButton *clearLocationButton;
 
 @property (strong, nonatomic) NSMutableArray *panes;
 @property (strong, nonatomic) UIView *openningPane;
 
 - (IBAction)CancelModal:(id)sender;
 - (void)registerForKeyboardNotifications;
-
-- (id) initWithCoordinates:(CLLocationCoordinate2D)paramCoordinates title:(NSString *)paramTitle subTitle:(NSString *)paramSubTitle;
 @end
