@@ -12,9 +12,9 @@
     sqlite3 *database;
 }
 - (NSString *) getDBPath;
-- (NSInteger)CreateNewList:(sqlite3 *)db listID:(NSNumber *)listID  listTitle:(NSString *)listTitle categoryID:(NSNumber *)categoryID;
+- (NSInteger)CreateNewList:(sqlite3 *)db listTitle:(NSString *)listTitle categoryID:(NSInteger *)categoryID isShare:(BOOL)isShare;
 - (NSArray *)getCategoryList;
--(NSInteger)insertNewTodoIntoDatabase;
-
+- (NSArray *)getList;
+- (NSInteger)insertNewTodoIntoDatabase;
 
 @end

@@ -13,10 +13,14 @@
 @interface NewListTableViewController : UITableViewController
 <UITextFieldDelegate, pickCategoryTableViewControllerDelegate>{
     sqlite3 *database;
+    NSInteger categoryIndexID;
+    NSString *categoryName;
 }
 
 @property (strong, nonatomic) UITextField *listNameTextField;
 @property (strong, nonatomic) UISwitch *isShare;
+@property (nonatomic) NSInteger categoryIndexID;
+@property (strong, nonatomic) NSString *categoryName;
 
 - (IBAction)CancelModal:(id)sender;
 - (IBAction)CreateList:(id)sender;

@@ -8,10 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import <MapKit/MapKit.h>
+#import <MapKit/MKReverseGeocoder.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface NewItemViewController : UIViewController
-<UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>{
+<UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MKMapViewDelegate, MKReverseGeocoderDelegate,CLLocationManagerDelegate,MKAnnotation>
+{
     CGRect imageFrame;
+    MKPlacemark *mPlacemark;
 }
 @property (strong, nonatomic) UITextView *contentTextView;
 @property (strong, nonatomic) UIToolbar *toolbar;
@@ -33,4 +38,6 @@
 
 - (IBAction)CancelModal:(id)sender;
 - (void)registerForKeyboardNotifications;
+
+- (id) initWithCoordinates:(CLLocationCoordinate2D)paramCoordinates title:(NSString *)paramTitle subTitle:(NSString *)paramSubTitle;
 @end

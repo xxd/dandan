@@ -27,7 +27,7 @@
 @property (nonatomic) NSInteger *listsID;
 @property (nonatomic, weak) id <syncDelegate> delegate;
 
--(NSArray *)syncWithList:(NSInteger)listID;
+-(NSArray *)syncWithList:(NSNumber *)listID;
 -(NSArray *)syncWithCategorie:(NSNumber *)categoryID;
 -(id)initWithPrimaryKey:(NSInteger)pk;
 @end

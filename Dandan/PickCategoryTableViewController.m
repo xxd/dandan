@@ -8,6 +8,7 @@
 
 #import "PickCategoryTableViewController.h"
 #import "LocalSQLiteOperate.h"
+#import "NewListTableViewController.h"
 
 @interface PickCategoryTableViewController ()
 
@@ -16,13 +17,15 @@
 @implementation PickCategoryTableViewController
 @synthesize delegate, categories;
 
-- (void)fillCategoryList{
+- (NSArray *)fillCategoryList{
     if ([[LocalSQLiteOperate alloc]  respondsToSelector:@selector(getCategoryList)]) 
     {
         categories = [[LocalSQLiteOperate alloc]  performSelector:@selector(getCategoryList)];
     } else {
         NSLog(@"## Class does not respond to getCategoryList");
     }
+    
+    return categories;
 }
 
 - (void)viewDidLoad
@@ -71,6 +74,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.delegate controller:self didSelectCategory:[categories objectAtIndex:[indexPath row]]];
+    NewListTableViewController *newListTableViewController = [[NewListTableViewController alloc]init];
+    newListTableViewController.categoryIndexID = [indexPath row];
+    NSLog(@"categoryIndexID:%i",newListTableViewController.categoryIndexID);
     [self.navigationController popViewControllerAnimated:YES];
 }
 

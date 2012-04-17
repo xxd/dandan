@@ -10,4 +10,5 @@
 
 @interface ListsTableViewController : UITableViewController
 @property (strong, nonatomic) NSArray *lists;
+- (NSArray *)fillList;
 @end

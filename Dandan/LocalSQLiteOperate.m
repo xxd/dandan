@@ -7,7 +7,7 @@
 //
 
 #import "LocalSQLiteOperate.h"
-#import "PickCategoryTableViewController.h"
+
 static sqlite3_stmt *insert_statement = nil;
 static sqlite3_stmt *selectstmt = nil;
 
@@ -20,14 +20,14 @@ static sqlite3_stmt *selectstmt = nil;
 }
 
 //建立新列表list
-- (NSInteger)CreateNewList:(sqlite3 *)db listID:(NSNumber *)listID  listTitle:(NSString *)listTitle categoryID:(NSNumber *)categoryID{
+- (NSInteger)CreateNewList:(sqlite3 *)db listTitle:(NSString *)listTitle categoryID:(NSInteger *)categoryID isShare:(BOOL)isShare{
     if (sqlite3_open([self.getDBPath UTF8String], &db) == SQLITE_OK) {
         NSLog(@"path:%@",self.getDBPath);
 
     if (insert_statement == nil) {
-        int list_ID = [listID intValue];
-        int category_ID = [categoryID intValue];
-        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO `lists` (`id`, `title`, `category_id`) VALUES (\"%i\", \"%@\", \"%i\")", list_ID, listTitle, category_ID];
+//        int category_ID = [categoryID intValue];
+        int share = (isShare==true)? 1:0;
+        NSString *insertSQL = [NSString stringWithFormat: @"INSERT INTO `lists` (`title`, `category_id`, `isShare`) VALUES (\"%@\", \"%i\", \"%i\")", listTitle,categoryID,share];
         const char *sql = [insertSQL UTF8String];
         NSLog(@"Insert SQL: %s",sql);
         if (sqlite3_prepare_v2(db, sql, -1, &insert_statement, NULL) != SQLITE_OK) {
@@ -46,12 +46,36 @@ static sqlite3_stmt *selectstmt = nil;
 }
 
 //获取Category列表
-- (NSArray *)getCategoryList{
+- (NSArray *)getCategoryList
+{
     if (sqlite3_open([[self getDBPath] UTF8String], &database) == SQLITE_OK) {
         // Get the primary key for all books.
         const char *sql = "SELECT name FROM categories";
         NSMutableArray *categroyNameArray = [[NSMutableArray alloc] init];
-        PickCategoryTableViewController *pickCategoryTableViewController = [[PickCategoryTableViewController alloc] init];
+        if (sqlite3_prepare_v2(database, sql, -1, &selectstmt, NULL) == SQLITE_OK) {
+            while (sqlite3_step(selectstmt) == SQLITE_ROW) {
+                NSString *name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 0)];
+                [categroyNameArray addObject:name];
+                
+                
+            }
+            return categroyNameArray;
+        }
+        sqlite3_finalize(selectstmt);
+    } else {
+        sqlite3_close(database);
+        NSAssert1(0, @"Failed to open database with message '%s'.", sqlite3_errmsg(database));
+    }
+}
+
+
+//获取Category列表
+- (NSArray *)getList
+{
+    if (sqlite3_open([[self getDBPath] UTF8String], &database) == SQLITE_OK) {
+        // Get the primary key for all books.
+        const char *sql = "SELECT title FROM lists";
+        NSMutableArray *categroyNameArray = [[NSMutableArray alloc] init];
         if (sqlite3_prepare_v2(database, sql, -1, &selectstmt, NULL) == SQLITE_OK) {
             while (sqlite3_step(selectstmt) == SQLITE_ROW) {
                 NSString *name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(selectstmt, 0)];
@@ -69,8 +93,11 @@ static sqlite3_stmt *selectstmt = nil;
 }
 
 //调试用 Debug Only!
-- (NSInteger)insertNewTodoIntoDatabase {
-    NSLog(@"as good as it gets!");
+
+-(void)mungeFirst:(NSString**)stringOne andSecond:(NSString**)stringTwo
+{
+    *stringOne = [NSString stringWithString:@"foo"];
+    *stringTwo = [NSString stringWithString:@"baz"];
 }
 
 @end

@@ -11,6 +11,8 @@
 #import "UIColor+UIColor_Hex.h"
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "UIImage+Resizing.h"
+#import "ParkPlaceMark.h"
+#import "MyAnnotation.h"
 
 @interface NewItemViewController ()
 static UIImage *shrinkImage(UIImage *original, CGSize size);
@@ -25,7 +27,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 @synthesize imagePane, mapPane, voicePane, songPane, openningPane, panes;
 @synthesize scaledImage;
 @synthesize items;
-
+@synthesize mapView,myLocationManager,coordinate,mapPane,ShowMyLocationButton,ClearMyLocationButton,title,subtitle;
 - (void)initTextView
 {
 	contentTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, 200)];
@@ -94,7 +96,6 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     [clearImageButton setTitle:@"删除" forState:UIControlStateNormal];
     [clearImageButton addTarget:self action:@selector(clearImage) forControlEvents:UIControlEventTouchUpInside];
     clearImageButton.hidden = YES;
-    
     
     changeImageButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [changeImageButton setFrame:CGRectMake(245, 381, 65, 25)];
@@ -207,12 +208,142 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 }
 
 #pragma mark -
+#pragma mark Location
+
+- (void)handleLocation{
+    [contentTextView resignFirstResponder];
+    imageView.hidden = YES;
+    imagePane.hidden = YES;
+    
+    float y = self.toolbar.frame.origin.y + self.toolbar.frame.size.height;
+    float h = self.view.frame.size.height - y;
+    self.mapPane = [[UIView alloc] initWithFrame:CGRectMake(0, y, 320, h)];
+    mapView =[[MKMapView alloc]initWithFrame:CGRectMake(10, y+20, 300, h-60)];
+    
+    ClearMyLocationButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [ClearMyLocationButton setFrame:CGRectMake(10, 381, 65, 25)];
+    [ClearMyLocationButton setTitle:@"清除" forState:UIControlStateNormal];
+    [ClearMyLocationButton addTarget:self action:@selector(ClearMyLocation) forControlEvents:UIControlEventTouchUpInside];
+    ClearMyLocationButton.hidden = NO;
+    
+    ShowMyLocationButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [ShowMyLocationButton setFrame:CGRectMake(245, 381, 65, 25)];
+    [ShowMyLocationButton setTitle:@"位置" forState:UIControlStateNormal];
+    [ShowMyLocationButton addTarget:self action:@selector(showMyLocation) forControlEvents:UIControlEventTouchUpInside];
+    ShowMyLocationButton.hidden = NO;
+    
+    [self.view addSubview:ClearMyLocationButton];
+    [self.view addSubview:ShowMyLocationButton];
+    
+    mapView.showsUserLocation=YES;
+    mapView.mapType = MKMapTypeStandard;
+    
+    //*********下面delegate会自动调用的MKMapViewDelegate的- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation方法
+    mapView.delegate = self;
+    
+    //mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//    [self.view insertSubview:mapView atIndex:0];
+    
+    //*********下面delegate会调用- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+    if ([CLLocationManager locationServicesEnabled]){ 
+        self.myLocationManager = [[CLLocationManager alloc] init]; 
+        self.myLocationManager.delegate = self;
+        self.myLocationManager.purpose = @"To provide functionality based on user's current location.";
+        [self.myLocationManager startUpdatingLocation];
+    } else {
+        NSLog(@"Location services are not enabled");
+    }
+    
+//    CLLocationCoordinate2D location = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);
+//    MyAnnotation *annotation = [[MyAnnotation alloc] initWithCoordinates:location 
+//                                                                   title:@"My Title"
+//                                                                subTitle:@"My Sub Title"];
+//    /* And eventually add it to the map */ 
+//    [self.mapView addAnnotation:annotation];
+
+    [self.view addSubview:self.mapView];
+    
+//    [self.mapPane addSubview:mapView];
+//    [self.mapPane insertSubview:mapView atIndex:0];
+//    [self.mapPane addSubview:ClearMyLocationButton];
+//    [self.mapPane addSubview:ShowMyLocationButton];
+//    [self.view addSubview: self.mapPane];
+    //[self.mapPane insertSubview:mapView atIndex:self.view.subviews.count];
+    NSLog(@"view.subviews.count:%i",self.view.subviews.count);
+}
+
+- (void) showMyLocation{
+	ParkPlaceMark *placemark=[[ParkPlaceMark alloc] initWithCoordinate:coordinate];
+	[mapView addAnnotation:placemark];
+}
+
+- (void) ClearMyLocation{
+	[mapView removeAnnotations:mapView.annotations];
+}
+
+- (void)locationManager:(CLLocationManager *)manager 
+    didUpdateToLocation:(CLLocation *)newLocation 
+           fromLocation:(CLLocation *)oldLocation{
+    coordinate = newLocation.coordinate;
+    
+    [myLocationManager stopUpdatingLocation];	
+	coordinate.latitude = newLocation.coordinate.latitude;
+	coordinate.longitude = newLocation.coordinate.longitude;
+    
+    NSLog(@"Latitude = %f", newLocation.coordinate.latitude); 
+    NSLog(@"Longitude = %f", newLocation.coordinate.longitude);
+   
+	MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coordinate, 0.5, 0.5);
+    region.center=coordinate;
+
+    MKCoordinateSpan span;
+    span.latitudeDelta=0.005;
+    span.longitudeDelta=0.005;
+	region.span=span;
+	
+	[mapView setRegion:region animated:TRUE];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error 
+{	
+	[myLocationManager stopUpdatingLocation];
+}
+
+- (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)placemark{
+	NSLog(@"Geocoder completed");
+	mPlacemark=placemark;
+	[mapView addAnnotation:placemark];
+}
+
+- (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error{
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView 
+            viewForAnnotation:(id <MKAnnotation>)annotation{
+	NSLog(@"View for Annotation is called");
+	MKPinAnnotationView *test=[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"parkingloc"];
+	test.userInteractionEnabled=TRUE;
+	if([annotation title]==@"Parked Location")
+	{
+		NSLog(@"Here");
+		[test setPinColor:MKPinAnnotationColorPurple];
+	}
+	else
+	{
+		[test setPinColor:MKPinAnnotationColorPurple];
+	}
+	return test;
+}
+
+
+#pragma mark -
 #pragma mark Handle Uploaders
 
 - (void)handleImage{
     [contentTextView resignFirstResponder];
     [self changePane:imagePane];
     if (!imageView.image) {
+        
         [self pickPhotoByActionSheet];
     }
 }
