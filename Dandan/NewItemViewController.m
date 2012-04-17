@@ -318,8 +318,12 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 - (void)handleImage{
     [contentTextView resignFirstResponder];
     mapView.hidden = YES;
+    imageView.hidden = NO;
+    ClearMyLocationButton.hidden = YES;
+    ShowMyLocationButton.hidden = YES;
+    
     if (!imageView.image) {
-        imageView.hidden = NO;
+        
         [self pickPhotoByActionSheet];
     }
 }
