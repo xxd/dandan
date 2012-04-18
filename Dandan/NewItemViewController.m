@@ -301,20 +301,28 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 - (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error{
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation{
-	NSLog(@"View for Annotation is called");
-	MKPinAnnotationView *test=[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"parkingloc"];
-	test.userInteractionEnabled=TRUE;
-	if([annotation title]==@"Parked Location")
-	{
-		NSLog(@"Here");
-		[test setPinColor:MKPinAnnotationColorPurple];
-	}
-	else
-	{
-		[test setPinColor:MKPinAnnotationColorRed];
-	}
-	return test;
+- (MKAnnotationView *)mapView:(MKMapView *)aMapView viewForAnnotation:(id <MKAnnotation>)annotation{
+    if (annotation == aMapView.userLocation) {
+        return nil;
+    }
+    
+    static NSString* AnnotationIdentifier = @"Annotation";
+    MKPinAnnotationView *pinView = (MKPinAnnotationView *)[aMapView dequeueReusableAnnotationViewWithIdentifier:AnnotationIdentifier];
+    
+    if (!pinView) {
+        MKPinAnnotationView *customPinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationIdentifier];   
+        if (annotation == aMapView.userLocation) customPinView.image = [UIImage imageNamed:@"pin.png"];
+        else customPinView.image = [UIImage imageNamed:@"pin.png"];
+        customPinView.animatesDrop = NO;
+        customPinView.canShowCallout = YES;
+        return customPinView;
+        
+    } else {
+        
+        pinView.annotation = annotation;
+    }
+    
+    return pinView;
 }
 
 
