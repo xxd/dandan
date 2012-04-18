@@ -233,10 +233,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     
     if (!mapView) {
         mapView =[[MKMapView alloc] initWithFrame:CGRectMake(10, 10, 300, self.mapPane.frame.size.height - 55)];
-        
-        mapView.showsUserLocation = YES;
         mapView.mapType = MKMapTypeStandard;
-        
         mapView.delegate = self;
         
         if ([CLLocationManager locationServicesEnabled]){ 
@@ -262,7 +259,6 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
         [self.mapPane addSubview:clearLocationButton];
         [self.mapPane addSubview:currentLocationButton];
     }
-    
 }
 
 - (void) currentLocation{
@@ -281,7 +277,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 	coordinate.latitude = newLocation.coordinate.latitude;
 	coordinate.longitude = newLocation.coordinate.longitude;
        
-	MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coordinate, 0.5, 0.5);
+	MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coordinate, 0, 0);
     region.center = coordinate;
 
     MKCoordinateSpan span;
@@ -305,8 +301,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 - (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error{
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView 
-            viewForAnnotation:(id <MKAnnotation>)annotation{
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation{
 	NSLog(@"View for Annotation is called");
 	MKPinAnnotationView *test=[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"parkingloc"];
 	test.userInteractionEnabled=TRUE;
@@ -317,7 +312,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 	}
 	else
 	{
-		[test setPinColor:MKPinAnnotationColorPurple];
+		[test setPinColor:MKPinAnnotationColorRed];
 	}
 	return test;
 }
