@@ -30,11 +30,9 @@
 
 @property (strong, nonatomic) UIView *imagePane;
 
-@property (strong, nonatomic) MKMapView *mapView; //显示map
-@property (strong, nonatomic) CLLocationManager *myLocationManager; //获取long和lat
-@property (readonly, nonatomic) CLLocationCoordinate2D coordinate;//以前叫的location
-@property (nonatomic, copy, readonly) NSString *title;
-@property (nonatomic, copy, readonly) NSString *subtitle;
+@property (strong, nonatomic) MKMapView *mapView;
+@property (strong, nonatomic) CLLocationManager *myLocationManager;
+@property (readonly, nonatomic) CLLocationCoordinate2D coordinate;
 @property (strong, nonatomic) UIView *mapPane;
 @property (strong, nonatomic) UIView *voicePane;
 @property (strong, nonatomic) UIView *songPane;

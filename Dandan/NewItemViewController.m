@@ -27,7 +27,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 @synthesize imagePane, mapPane, voicePane, songPane, openningPane, panes;
 @synthesize scaledImage;
 @synthesize items;
-@synthesize mapView, myLocationManager, coordinate, currentLocationButton, clearLocationButton, title, subtitle;
+@synthesize mapView, myLocationManager, coordinate, currentLocationButton, clearLocationButton;
 
 - (void)initTextView
 {
@@ -258,6 +258,23 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
         [self.mapPane addSubview:self.mapView];
         [self.mapPane addSubview:clearLocationButton];
         [self.mapPane addSubview:currentLocationButton];
+        
+        UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGesture:)];
+        [self.mapView addGestureRecognizer:longPressGesture];
+    }
+}
+
+-(void)handleLongPressGesture:(UIGestureRecognizer*)sender {
+    if (sender.state == UIGestureRecognizerStateEnded)
+    {
+        [self.mapView removeGestureRecognizer:sender];
+    }
+    else
+    {
+        CGPoint point = [sender locationInView:self.mapView];
+        CLLocationCoordinate2D locCoord = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
+        ParkPlaceMark *dropPin=[[ParkPlaceMark alloc] initWithCoordinate:locCoord];
+        [self.mapView addAnnotation:dropPin];
     }
 }
 
@@ -292,6 +309,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 {	
 	[myLocationManager stopUpdatingLocation];
 }
+
 
 - (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)placemark{
 	mPlacemark = placemark;

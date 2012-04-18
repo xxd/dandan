@@ -4,10 +4,10 @@
 @synthesize coordinate;
 
 - (NSString *)subtitle{
-	return @"Put some text here";
+	return @"可以增加用来回忆的详细位置信息";
 }
 - (NSString *)title{
-	return @"Parked Location";
+	return @"您所选择的单单item位置";
 }
 
 -(id)initWithCoordinate:(CLLocationCoordinate2D) c{
