@@ -7,12 +7,13 @@
 //
 
 #import "NewItemViewController.h"
-#import <QuartzCore/QuartzCore.h>
-#import "UIColor+UIColor_Hex.h"
-#import <MobileCoreServices/UTCoreTypes.h>
-#import "UIImage+Resizing.h"
 #import "ParkPlaceMark.h"
 #import "MyAnnotation.h"
+
+#import <QuartzCore/QuartzCore.h>
+#import <MobileCoreServices/UTCoreTypes.h>
+#import "UIColor+UIColor_Hex.h"
+#import "UIImage+Resizing.h"
 
 @interface NewItemViewController ()
 static UIImage *shrinkImage(UIImage *original, CGSize size);
@@ -27,7 +28,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 @synthesize imagePane, mapPane, voicePane, songPane, openningPane, panes;
 @synthesize scaledImage;
 @synthesize items;
-@synthesize mapView, myLocationManager, coordinate, currentLocationButton, clearLocationButton;
+@synthesize mapView, myLocationManager, coordinate, currentLocationButton, clearLocationButton, reverseGeocoder, forwardGeocoder;
 
 - (void)initTextView
 {
@@ -285,6 +286,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 
 - (void) clearAnnotations{
 	[mapView removeAnnotations:mapView.annotations];
+    [self handleLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
@@ -303,6 +305,10 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 	region.span = span;
 	
 	[mapView setRegion:region animated:TRUE];
+    
+//    reverseGeocoder = [[MJReverseGeocoder alloc] initWithCoordinate:newLocation.coordinate];
+//	reverseGeocoder.delegate = self;
+//	[reverseGeocoder start];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error 
@@ -310,6 +316,28 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 	[myLocationManager stopUpdatingLocation];
 }
 
+#pragma mark -
+#pragma mark MJReverseGeocoderDelegate
+
+//- (void)reverseGeocoder:(MJReverseGeocoder *)geocoder didFindAddress:(AddressComponents *)addressComponents{
+//	//hide network indicator
+//	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+//	
+//	NSString *address = [NSString stringWithFormat:@"%@ %@, %@, %@", 
+//								 addressComponents.streetNumber, 
+//								 addressComponents.route,
+//								 addressComponents.city,
+//								 addressComponents.stateCode];
+//    NSLog(@"当前地址:%@",address);
+//}
+//
+//
+//- (void)reverseGeocoder:(MJReverseGeocoder *)geocoder didFailWithError:(NSError *)error{
+//	//show network indicator
+//	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+//	
+//    NSLog(@"Couldn't reverse geocode coordinate!");
+//}
 
 - (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)placemark{
 	mPlacemark = placemark;

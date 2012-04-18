@@ -11,12 +11,15 @@
 #import <MapKit/MapKit.h>
 #import <MapKit/MKReverseGeocoder.h>
 #import <CoreLocation/CoreLocation.h>
+#import "MJGeocodingServices.h"
 
 @interface NewItemViewController : UIViewController
-<UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MKMapViewDelegate, MKReverseGeocoderDelegate,CLLocationManagerDelegate,MKAnnotation>
+<UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MKMapViewDelegate, MKReverseGeocoderDelegate,CLLocationManagerDelegate,MKAnnotation,MJReverseGeocoderDelegate, MJGeocoderDelegate>
 {
     CGRect imageFrame;
     MKPlacemark *mPlacemark;
+    MJReverseGeocoder *reverseGeocoder;
+	MJGeocoder *forwardGeocoder;
 }
 @property (strong, nonatomic) UITextView *contentTextView;
 @property (strong, nonatomic) UIToolbar *toolbar;
@@ -38,6 +41,8 @@
 @property (strong, nonatomic) UIView *songPane;
 @property (strong, nonatomic) UIButton *currentLocationButton;
 @property (strong, nonatomic) UIButton *clearLocationButton;
+@property(nonatomic, retain) MJReverseGeocoder *reverseGeocoder;
+@property(nonatomic, retain) MJGeocoder *forwardGeocoder;
 
 @property (strong, nonatomic) NSMutableArray *panes;
 @property (strong, nonatomic) UIView *openningPane;

@@ -26,6 +26,14 @@
 		4D9FDADC1530889D001BA076 /* DictionaryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FDAC71530821D001BA076 /* DictionaryHelper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4D9FDADD1530889D001BA076 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FDAC91530821D001BA076 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4D9FDADE1530889D001BA076 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FDACB1530821D001BA076 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4DA4C76C153EB06F00FB0A24 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA4C75A153EAE1E00FB0A24 /* NSObject+SBJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4DA4C76D153EB06F00FB0A24 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA4C75C153EAE1E00FB0A24 /* NSString+SBJSON.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4DA4C76E153EB06F00FB0A24 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA4C75E153EAE1E00FB0A24 /* SBJsonBase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4DA4C76F153EB06F00FB0A24 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA4C760153EAE1F00FB0A24 /* SBJsonParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4DA4C770153EB06F00FB0A24 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA4C762153EAE1F00FB0A24 /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4DA4C771153EB06F00FB0A24 /* AddressComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA4C766153EAE3900FB0A24 /* AddressComponents.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4DA4C772153EB06F00FB0A24 /* MJGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA4C768153EAE3900FB0A24 /* MJGeocoder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4DA4C773153EB06F00FB0A24 /* MJReverseGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA4C76A153EAE3900FB0A24 /* MJReverseGeocoder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4DD9471F1532CEC700DAC370 /* dan.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 4DD9471E1532CEC700DAC370 /* dan.sqlite */; };
 		4DD9472A1533DBD900DAC370 /* LocalSQLiteOperate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD947291533DBD900DAC370 /* LocalSQLiteOperate.m */; };
 		4DFC30B2153B07FE002E2E02 /* ParkPlaceMark.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DFC30B1153B0676002E2E02 /* ParkPlaceMark.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -99,6 +107,24 @@
 		4D9FDACB1530821D001BA076 /* Reachability.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		4D9FDAD01530882B001BA076 /* Sync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sync.h; sourceTree = "<group>"; };
 		4D9FDAD11530882B001BA076 /* Sync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sync.m; sourceTree = "<group>"; };
+		4DA4C758153EAE1E00FB0A24 /* JSON.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		4DA4C759153EAE1E00FB0A24 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
+		4DA4C75A153EAE1E00FB0A24 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
+		4DA4C75B153EAE1E00FB0A24 /* NSString+SBJSON.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
+		4DA4C75C153EAE1E00FB0A24 /* NSString+SBJSON.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
+		4DA4C75D153EAE1E00FB0A24 /* SBJsonBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
+		4DA4C75E153EAE1E00FB0A24 /* SBJsonBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
+		4DA4C75F153EAE1E00FB0A24 /* SBJsonParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		4DA4C760153EAE1F00FB0A24 /* SBJsonParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		4DA4C761153EAE1F00FB0A24 /* SBJsonWriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		4DA4C762153EAE1F00FB0A24 /* SBJsonWriter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		4DA4C764153EAE3900FB0A24 /* MJGeocodingServices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MJGeocodingServices.h; sourceTree = "<group>"; };
+		4DA4C765153EAE3900FB0A24 /* AddressComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddressComponents.h; sourceTree = "<group>"; };
+		4DA4C766153EAE3900FB0A24 /* AddressComponents.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddressComponents.m; sourceTree = "<group>"; };
+		4DA4C767153EAE3900FB0A24 /* MJGeocoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MJGeocoder.h; sourceTree = "<group>"; };
+		4DA4C768153EAE3900FB0A24 /* MJGeocoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MJGeocoder.m; sourceTree = "<group>"; };
+		4DA4C769153EAE3900FB0A24 /* MJReverseGeocoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MJReverseGeocoder.h; sourceTree = "<group>"; };
+		4DA4C76A153EAE3900FB0A24 /* MJReverseGeocoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MJReverseGeocoder.m; sourceTree = "<group>"; };
 		4DD9471E1532CEC700DAC370 /* dan.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = dan.sqlite; path = ../dan.sqlite; sourceTree = "<group>"; };
 		4DD947281533DBD900DAC370 /* LocalSQLiteOperate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalSQLiteOperate.h; sourceTree = "<group>"; };
 		4DD947291533DBD900DAC370 /* LocalSQLiteOperate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalSQLiteOperate.m; sourceTree = "<group>"; };
@@ -209,6 +235,39 @@
 			name = ASIHTTPRequest;
 			sourceTree = "<group>";
 		};
+		4DA4C763153EAE2600FB0A24 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				4DA4C758153EAE1E00FB0A24 /* JSON.h */,
+				4DA4C759153EAE1E00FB0A24 /* NSObject+SBJSON.h */,
+				4DA4C75A153EAE1E00FB0A24 /* NSObject+SBJSON.m */,
+				4DA4C75B153EAE1E00FB0A24 /* NSString+SBJSON.h */,
+				4DA4C75C153EAE1E00FB0A24 /* NSString+SBJSON.m */,
+				4DA4C75D153EAE1E00FB0A24 /* SBJsonBase.h */,
+				4DA4C75E153EAE1E00FB0A24 /* SBJsonBase.m */,
+				4DA4C75F153EAE1E00FB0A24 /* SBJsonParser.h */,
+				4DA4C760153EAE1F00FB0A24 /* SBJsonParser.m */,
+				4DA4C761153EAE1F00FB0A24 /* SBJsonWriter.h */,
+				4DA4C762153EAE1F00FB0A24 /* SBJsonWriter.m */,
+			);
+			name = JSON;
+			sourceTree = "<group>";
+		};
+		4DA4C76B153EAE4700FB0A24 /* MJGeocodingServices */ = {
+			isa = PBXGroup;
+			children = (
+				4DA4C763153EAE2600FB0A24 /* JSON */,
+				4DA4C764153EAE3900FB0A24 /* MJGeocodingServices.h */,
+				4DA4C765153EAE3900FB0A24 /* AddressComponents.h */,
+				4DA4C766153EAE3900FB0A24 /* AddressComponents.m */,
+				4DA4C767153EAE3900FB0A24 /* MJGeocoder.h */,
+				4DA4C768153EAE3900FB0A24 /* MJGeocoder.m */,
+				4DA4C769153EAE3900FB0A24 /* MJReverseGeocoder.h */,
+				4DA4C76A153EAE3900FB0A24 /* MJReverseGeocoder.m */,
+			);
+			name = MJGeocodingServices;
+			sourceTree = "<group>";
+		};
 		9FAD0239151D677500D32564 = {
 			isa = PBXGroup;
 			children = (
@@ -252,6 +311,7 @@
 		9FAD024E151D677500D32564 /* Dandan */ = {
 			isa = PBXGroup;
 			children = (
+				4DA4C76B153EAE4700FB0A24 /* MJGeocodingServices */,
 				4D9FDACC15308227001BA076 /* ASIHTTPRequest */,
 				9F8E81D51530392D0081FD3E /* NYXImagesHelper.h */,
 				9F8E81D61530392D0081FD3E /* NYXImagesHelper.m */,
@@ -391,6 +451,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DA4C76C153EB06F00FB0A24 /* NSObject+SBJSON.m in Sources */,
+				4DA4C76D153EB06F00FB0A24 /* NSString+SBJSON.m in Sources */,
+				4DA4C76E153EB06F00FB0A24 /* SBJsonBase.m in Sources */,
+				4DA4C76F153EB06F00FB0A24 /* SBJsonParser.m in Sources */,
+				4DA4C770153EB06F00FB0A24 /* SBJsonWriter.m in Sources */,
+				4DA4C771153EB06F00FB0A24 /* AddressComponents.m in Sources */,
+				4DA4C772153EB06F00FB0A24 /* MJGeocoder.m in Sources */,
+				4DA4C773153EB06F00FB0A24 /* MJReverseGeocoder.m in Sources */,
 				4DFC30B2153B07FE002E2E02 /* ParkPlaceMark.m in Sources */,
 				4D9FDAD51530889D001BA076 /* ASIAuthenticationDialog.m in Sources */,
 				4D9FDAD61530889D001BA076 /* ASIDataCompressor.m in Sources */,
