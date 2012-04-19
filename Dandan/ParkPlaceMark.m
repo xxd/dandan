@@ -1,12 +1,14 @@
 #import "ParkPlaceMark.h"
 
 @implementation ParkPlaceMark
-@synthesize title, coordinate;
+@synthesize title, subtitle, coordinate;
+@synthesize image;
 
-- (id)initWithTitle:(NSString *)ttl andCoordinate:(CLLocationCoordinate2D)c2d {
+- (id)initWithTitle:(NSString *)ttl andCoordinate:(CLLocationCoordinate2D)c2d{
 	[super init];
-	title = ttl;
+	title = @"xxd当前位置：";
 	coordinate = c2d;
+    subtitle = ttl;
 	return self;
 }
 
@@ -15,4 +17,5 @@
 	NSLog(@"%f,%f",c.latitude,c.longitude);
 	return self;
 }
+
 @end

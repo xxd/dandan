@@ -353,8 +353,9 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
         else customPinView.image = [UIImage imageNamed:@"pin.png"];
         customPinView.animatesDrop = NO;
         customPinView.canShowCallout = YES;
+        UIImageView *sfIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"xxd.png"]];
+        customPinView.leftCalloutAccessoryView = sfIconView;
         return customPinView;
-        
     } else {
         
         pinView.annotation = annotation;
