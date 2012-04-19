@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4D099717153FBD6D00F13D9C /* thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D099716153FBD6D00F13D9C /* thumb.png */; };
-		4D099722153FE94800F13D9C /* xxd.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D099721153FE94800F13D9C /* xxd.png */; };
+		4D09972D153FF4A600F13D9C /* xxd-s1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D09972B153FF4A600F13D9C /* xxd-s1.png */; };
+		4D09972E153FF4A600F13D9C /* xxd-c1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D09972C153FF4A600F13D9C /* xxd-c1.png */; };
 		4D9B60C2153BF48900E2C5EA /* MyAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9B60C1153BF48900E2C5EA /* MyAnnotation.m */; };
 		4D9FDAA615308035001BA076 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9FDAA515308035001BA076 /* libsqlite3.0.dylib */; };
 		4D9FDAAD1530807C001BA076 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9FDAA81530807C001BA076 /* CFNetwork.framework */; };
@@ -73,8 +73,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4D099716153FBD6D00F13D9C /* thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumb.png; sourceTree = "<group>"; };
-		4D099721153FE94800F13D9C /* xxd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xxd.png; sourceTree = "<group>"; };
+		4D09972B153FF4A600F13D9C /* xxd-s1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xxd-s1.png"; sourceTree = "<group>"; };
+		4D09972C153FF4A600F13D9C /* xxd-c1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xxd-c1.png"; sourceTree = "<group>"; };
 		4D9B60C0153BF48900E2C5EA /* MyAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAnnotation.h; sourceTree = "<group>"; };
 		4D9B60C1153BF48900E2C5EA /* MyAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAnnotation.m; sourceTree = "<group>"; };
 		4D9FDAA515308035001BA076 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
@@ -351,8 +351,8 @@
 		9FAD024F151D677500D32564 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4D099721153FE94800F13D9C /* xxd.png */,
-				4D099716153FBD6D00F13D9C /* thumb.png */,
+				4D09972B153FF4A600F13D9C /* xxd-s1.png */,
+				4D09972C153FF4A600F13D9C /* xxd-c1.png */,
 				4DFC30B7153BC20F002E2E02 /* pin.png */,
 				4DD9471E1532CEC700DAC370 /* dan.sqlite */,
 				9FAD0274151D700E00D32564 /* Images */,
@@ -447,8 +447,8 @@
 				9FAD029E151DA95B00D32564 /* dotLine.png in Resources */,
 				4DD9471F1532CEC700DAC370 /* dan.sqlite in Resources */,
 				4DFC30B8153BC20F002E2E02 /* pin.png in Resources */,
-				4D099717153FBD6D00F13D9C /* thumb.png in Resources */,
-				4D099722153FE94800F13D9C /* xxd.png in Resources */,
+				4D09972D153FF4A600F13D9C /* xxd-s1.png in Resources */,
+				4D09972E153FF4A600F13D9C /* xxd-c1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
