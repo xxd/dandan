@@ -324,10 +324,11 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 	
 	subTitle = [NSString stringWithFormat:@"%@ %@, %@, %@", 
-								 addressComponents.streetNumber, 
-								 addressComponents.route,
 								 addressComponents.city,
-								 addressComponents.stateCode];
+                                addressComponents.route,
+                         addressComponents.streetNumber,
+                            addressComponents.stateCode];
+    NSLog(@"%@",subTitle);
 }
 
 
