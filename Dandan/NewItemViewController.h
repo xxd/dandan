@@ -43,6 +43,8 @@
 @property (strong, nonatomic) UIButton *clearLocationButton;
 @property(nonatomic, retain) MJReverseGeocoder *reverseGeocoder;
 @property(nonatomic, retain) MJGeocoder *forwardGeocoder;
+@property(nonatomic, readonly) NSString *titles;
+@property(nonatomic, readonly) NSString *subTitle;
 
 @property (strong, nonatomic) NSMutableArray *panes;
 @property (strong, nonatomic) UIView *openningPane;

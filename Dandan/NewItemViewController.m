@@ -28,7 +28,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 @synthesize imagePane, mapPane, voicePane, songPane, openningPane, panes;
 @synthesize scaledImage;
 @synthesize items;
-@synthesize mapView, myLocationManager, coordinate, currentLocationButton, clearLocationButton, reverseGeocoder, forwardGeocoder;
+@synthesize mapView, myLocationManager, coordinate, currentLocationButton, clearLocationButton, reverseGeocoder, forwardGeocoder, titles, subTitle;
 
 - (void)initTextView
 {
@@ -274,7 +274,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     {
         CGPoint point = [sender locationInView:self.mapView];
         CLLocationCoordinate2D locCoord = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
-        ParkPlaceMark *dropPin=[[ParkPlaceMark alloc] initWithCoordinate:locCoord];
+        ParkPlaceMark *dropPin = [[ParkPlaceMark alloc] initWithTitle:subTitle andCoordinate:locCoord];
         [self.mapView addAnnotation:dropPin];
     }
 }
@@ -306,9 +306,9 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 	
 	[mapView setRegion:region animated:TRUE];
     
-//    reverseGeocoder = [[MJReverseGeocoder alloc] initWithCoordinate:newLocation.coordinate];
-//	reverseGeocoder.delegate = self;
-//	[reverseGeocoder start];
+    reverseGeocoder = [[MJReverseGeocoder alloc] initWithCoordinate:newLocation.coordinate];
+	reverseGeocoder.delegate = self;
+	[reverseGeocoder start];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error 
@@ -319,32 +319,23 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 #pragma mark -
 #pragma mark MJReverseGeocoderDelegate
 
-//- (void)reverseGeocoder:(MJReverseGeocoder *)geocoder didFindAddress:(AddressComponents *)addressComponents{
-//	//hide network indicator
-//	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-//	
-//	NSString *address = [NSString stringWithFormat:@"%@ %@, %@, %@", 
-//								 addressComponents.streetNumber, 
-//								 addressComponents.route,
-//								 addressComponents.city,
-//								 addressComponents.stateCode];
-//    NSLog(@"当前地址:%@",address);
-//}
-//
-//
-//- (void)reverseGeocoder:(MJReverseGeocoder *)geocoder didFailWithError:(NSError *)error{
-//	//show network indicator
-//	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-//	
-//    NSLog(@"Couldn't reverse geocode coordinate!");
-//}
-
-- (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)placemark{
-	mPlacemark = placemark;
-	[mapView addAnnotation:placemark];
+- (void)reverseGeocoder:(MJReverseGeocoder *)geocoder didFindAddress:(AddressComponents *)addressComponents{
+	//hide network indicator
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+	
+	subTitle = [NSString stringWithFormat:@"%@ %@, %@, %@", 
+								 addressComponents.streetNumber, 
+								 addressComponents.route,
+								 addressComponents.city,
+								 addressComponents.stateCode];
 }
 
-- (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error{
+
+- (void)reverseGeocoder:(MJReverseGeocoder *)geocoder didFailWithError:(NSError *)error
+{
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+	
+    NSLog(@"Couldn't reverse geocode coordinate!");
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)aMapView viewForAnnotation:(id <MKAnnotation>)annotation{
