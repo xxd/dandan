@@ -145,6 +145,9 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    self.contentTextView = nil;
+    self.toolbar = nil;
+    self.mapView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -236,6 +239,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
         mapView =[[MKMapView alloc] initWithFrame:CGRectMake(10, 10, 300, self.mapPane.frame.size.height - 55)];
         mapView.mapType = MKMapTypeStandard;
         mapView.delegate = self;
+        mapView.showsUserLocation = YES;
         
         if ([CLLocationManager locationServicesEnabled]){ 
             self.myLocationManager = [[CLLocationManager alloc] init];
@@ -289,31 +293,13 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     //[self handleLocation];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
-    coordinate = newLocation.coordinate;
-    
-    [myLocationManager stopUpdatingLocation];	
-	coordinate.latitude = newLocation.coordinate.latitude;
-	coordinate.longitude = newLocation.coordinate.longitude;
-       
-	MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coordinate, 0, 0);
-    region.center = coordinate;
-
-    MKCoordinateSpan span;
-    span.latitudeDelta = 0.005;
-    span.longitudeDelta = 0.005;
-	region.span = span;
-	
-	[mapView setRegion:region animated:TRUE];
-    
-    reverseGeocoder = [[MJReverseGeocoder alloc] initWithCoordinate:newLocation.coordinate];
-	reverseGeocoder.delegate = self;
-	[reverseGeocoder start];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error 
-{	
-	[myLocationManager stopUpdatingLocation];
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    CLLocationCoordinate2D coord = userLocation.location.coordinate;
+    [self.mapView setRegion:MKCoordinateRegionMake(coord, MKCoordinateSpanMake(0.005f, 0.005f)) animated:YES];
+    reverseGeocoder = [[MJReverseGeocoder alloc] initWithCoordinate:coord];
+    reverseGeocoder.delegate = self;
+    [reverseGeocoder start];
 }
 
 #pragma mark -
