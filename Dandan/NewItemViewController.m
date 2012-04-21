@@ -280,13 +280,13 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 }
 
 - (void) currentLocation{
-	ParkPlaceMark *placemark=[[ParkPlaceMark alloc] initWithCoordinate:coordinate];
+    ParkPlaceMark *placemark = [[ParkPlaceMark alloc] initWithTitle:subTitle andCoordinate:coordinate];
 	[mapView addAnnotation:placemark];
 }
 
 - (void) clearAnnotations{
 	[mapView removeAnnotations:mapView.annotations];
-    [self handleLocation];
+    //[self handleLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
@@ -324,10 +324,10 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 	
 	subTitle = [NSString stringWithFormat:@"%@ %@, %@, %@", 
+                            addressComponents.stateCode,
 								 addressComponents.city,
                                 addressComponents.route,
-                         addressComponents.streetNumber,
-                            addressComponents.stateCode];
+                         addressComponents.streetNumber];
     NSLog(@"%@",subTitle);
 }
 
