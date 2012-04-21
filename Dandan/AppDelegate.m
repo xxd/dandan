@@ -68,9 +68,9 @@ static sqlite3_stmt *statementChk = nil;
         for ( NSString *table in tableArray ){
             NSLog( @"table name:%@", table);
             SEL customSelector = NSSelectorFromString([NSString stringWithFormat:@"syncWith%@:", table]);
-            NSLog( @"customSelector:%@", customSelector);
+            //NSLog( @"customSelector:%@", customSelector);
             SEL syncToLiteSel = NSSelectorFromString([NSString stringWithFormat:@"sync%@", table]);
-            NSLog( @"syncToLiteSel:%@", syncToLiteSel);
+            //NSLog( @"syncToLiteSel:%@", syncToLiteSel);
             NSString *sql_str = [NSString stringWithFormat:@"SELECT id FROM %@s ORDER BY id DESC LIMIT 1", table];
             const char *sql = (char *)[sql_str UTF8String];
             NSLog( @"SQL :%@", sql_str);
@@ -200,7 +200,7 @@ static sqlite3_stmt *statementChk = nil;
     [self createEditableCopyofDatabaseIfNeeded];
     // 同步表
     
-    // [self initializeDatabase];
+    [self initializeDatabase];
 
     return YES;
 }

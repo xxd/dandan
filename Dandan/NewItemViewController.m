@@ -28,7 +28,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 @synthesize imagePane, mapPane, voicePane, songPane, openningPane, panes;
 @synthesize scaledImage;
 @synthesize items;
-@synthesize mapView, myLocationManager, coordinate, currentLocationButton, clearLocationButton, reverseGeocoder, forwardGeocoder, titles, subTitle;
+@synthesize mapView, myLocationManager, coordinate, currentLocationButton, clearLocationButton, reverseGeocoder, forwardGeocoder, titles, subTitle,mapImage;
 
 - (void)initTextView
 {
@@ -289,14 +289,49 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 }
 
 - (void) clearAnnotations{
+    self.imageView.image = nil;
 	[mapView removeAnnotations:mapView.annotations];
-    //[self handleLocation];
 }
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
     CLLocationCoordinate2D coord = userLocation.location.coordinate;
     [self.mapView setRegion:MKCoordinateRegionMake(coord, MKCoordinateSpanMake(0.005f, 0.005f)) animated:YES];
+    self.mapView.userLocation.title = @"当前位置:";
+    self.mapView.userLocation.subtitle = subTitle;
+    
+    NSString *staticMapUrl = [NSString stringWithFormat:@"http://maps.google.com/maps/api/staticmap?markers=color:red|%f,%f&%@&sensor=true",coord.latitude, coord.longitude,@"zoom=10&size=60x60"];
+    NSLog(@"url:%@",staticMapUrl);
+    NSURL *mapUrl = [NSURL URLWithString:[staticMapUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]; 
+    mapImage= [UIImage imageWithData: [NSData dataWithContentsOfURL:mapUrl]];
+
+    
+    UIButton *composeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [composeButton setFrame:CGRectMake(0.0f, 0.0f, 30.0f, 30.0f)];
+    [composeButton addTarget:self action:@selector(handleLocation) forControlEvents:UIControlEventTouchUpInside];
+    
+    CALayer *sublayer = [composeButton layer];
+    sublayer.backgroundColor = [UIColor blueColor].CGColor;
+    sublayer.shadowOffset = CGSizeMake(0, 0);
+    sublayer.shadowRadius = 3.0;
+    sublayer.shadowColor = [UIColor blackColor].CGColor;
+    sublayer.shadowOpacity = 0.8;
+    sublayer.frame = CGRectMake(self.view.frame.size.width/2-15, self.view.frame.size.height/2-15,30,30);
+    sublayer.cornerRadius = 15;
+    
+    CALayer *imageLayer = [CALayer layer];
+    imageLayer.frame = sublayer.bounds;
+    imageLayer.cornerRadius = 15.0;
+    imageLayer.contents = (id) mapImage.CGImage;
+    imageLayer.borderWidth = 1;
+    imageLayer.borderColor = [UIColor whiteColorWithAlpha:0.7].CGColor;
+    imageLayer.masksToBounds = YES;
+    [sublayer addSublayer:imageLayer];
+    
+    UIBarButtonItem *composePost = [[UIBarButtonItem alloc] initWithCustomView:composeButton];
+    [items replaceObjectAtIndex:2 withObject:composePost];
+    [self.toolbar setItems:items animated:NO];
+    
     reverseGeocoder = [[MJReverseGeocoder alloc] initWithCoordinate:coord];
     reverseGeocoder.delegate = self;
     [reverseGeocoder start];

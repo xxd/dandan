@@ -34,6 +34,7 @@
 @property (strong, nonatomic) UIView *imagePane;
 
 @property (strong, nonatomic) MKMapView *mapView;
+@property (strong, nonatomic) UIImage *mapImage;
 @property (strong, nonatomic) CLLocationManager *myLocationManager;
 @property (readonly, nonatomic) CLLocationCoordinate2D coordinate;
 @property (strong, nonatomic) UIView *mapPane;
