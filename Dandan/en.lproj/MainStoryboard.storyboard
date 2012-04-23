@@ -161,6 +161,21 @@
             </objects>
             <point key="canvasLocation" x="2770" y="561"/>
         </scene>
+        <!--New Geo View Controller-->
+        <scene sceneID="nhG-5J-toh">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gh9-Hq-eNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="NewGeoViewController" id="a28-DL-bHt" customClass="NewGeoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rHM-vc-Rf2">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="1cA-Tw-lxc"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="3143" y="-750"/>
+        </scene>
         <!--New Item View Controller-->
         <scene sceneID="Jzh-em-YnH">
             <objects>
@@ -169,6 +184,13 @@
                     <view key="view" contentMode="scaleToFill" id="eVD-6J-45d">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="8i5-5z-z5K">
+                                <rect key="frame" x="33" y="148" width="182" height="28"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="8vY-wU-n3x">
@@ -386,28 +408,25 @@
             </objects>
             <point key="canvasLocation" x="634" y="-481"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="rzh-mG-RrP">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6RT-yV-glI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="vVw-MV-HAy" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="st7-qV-Axn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="a28-DL-bHt" kind="relationship" relationship="rootViewController" id="Lh2-Hh-PEc"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="2617" y="-750"/>
+        </scene>
     </scenes>
-    <classes>
-        <class className="ListsTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ListsTableViewController.h"/>
-        </class>
-        <class className="NewItemViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NewItemViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="CancelModal:"/>
-            </relationships>
-        </class>
-        <class className="NewListTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NewListTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="CancelModal:"/>
-                <relationship kind="action" name="CreateList:"/>
-            </relationships>
-        </class>
-        <class className="PickCategoryTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PickCategoryTableViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

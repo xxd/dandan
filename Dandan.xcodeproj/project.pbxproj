@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4D09972D153FF4A600F13D9C /* xxd-s1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D09972B153FF4A600F13D9C /* xxd-s1.png */; };
 		4D09972E153FF4A600F13D9C /* xxd-c1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D09972C153FF4A600F13D9C /* xxd-c1.png */; };
+		4D8AE3B715454A6A007D5942 /* NewGeoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8AE3B615454A6A007D5942 /* NewGeoViewController.m */; };
 		4D9B60C2153BF48900E2C5EA /* MyAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9B60C1153BF48900E2C5EA /* MyAnnotation.m */; };
 		4D9FDAA615308035001BA076 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9FDAA515308035001BA076 /* libsqlite3.0.dylib */; };
 		4D9FDAAD1530807C001BA076 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9FDAA81530807C001BA076 /* CFNetwork.framework */; };
@@ -75,6 +76,8 @@
 /* Begin PBXFileReference section */
 		4D09972B153FF4A600F13D9C /* xxd-s1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xxd-s1.png"; sourceTree = "<group>"; };
 		4D09972C153FF4A600F13D9C /* xxd-c1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xxd-c1.png"; sourceTree = "<group>"; };
+		4D8AE3B515454A6A007D5942 /* NewGeoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewGeoViewController.h; sourceTree = "<group>"; };
+		4D8AE3B615454A6A007D5942 /* NewGeoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewGeoViewController.m; sourceTree = "<group>"; };
 		4D9B60C0153BF48900E2C5EA /* MyAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAnnotation.h; sourceTree = "<group>"; };
 		4D9B60C1153BF48900E2C5EA /* MyAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAnnotation.m; sourceTree = "<group>"; };
 		4D9FDAA515308035001BA076 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
@@ -344,6 +347,8 @@
 				4D9B60C0153BF48900E2C5EA /* MyAnnotation.h */,
 				4D9B60C1153BF48900E2C5EA /* MyAnnotation.m */,
 				9FAD024F151D677500D32564 /* Supporting Files */,
+				4D8AE3B515454A6A007D5942 /* NewGeoViewController.h */,
+				4D8AE3B615454A6A007D5942 /* NewGeoViewController.m */,
 			);
 			path = Dandan;
 			sourceTree = "<group>";
@@ -491,6 +496,7 @@
 				4D9FDAD21530882B001BA076 /* Sync.m in Sources */,
 				4DD9472A1533DBD900DAC370 /* LocalSQLiteOperate.m in Sources */,
 				4D9B60C2153BF48900E2C5EA /* MyAnnotation.m in Sources */,
+				4D8AE3B715454A6A007D5942 /* NewGeoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,6 +12,7 @@
 #import <MapKit/MKReverseGeocoder.h>
 #import <CoreLocation/CoreLocation.h>
 #import "MJGeocodingServices.h"
+#import "NewGeoViewController.h"
 
 @class NewItemViewController;
 @protocol newItemViewControllerDelegate <NSObject>
@@ -19,7 +20,7 @@
 @end
 
 @interface NewItemViewController : UIViewController
-<UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MKMapViewDelegate,CLLocationManagerDelegate,MKAnnotation,MJReverseGeocoderDelegate, MJGeocoderDelegate>
+<UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MKMapViewDelegate,CLLocationManagerDelegate,MKAnnotation,MJReverseGeocoderDelegate, MJGeocoderDelegate,NewGeoDelegate>
 {
     CGRect imageFrame;
     MKPlacemark *mPlacemark;
@@ -59,4 +60,5 @@
 
 - (IBAction)CancelModal:(id)sender;
 - (void)registerForKeyboardNotifications;
+-(void)addGeoButtonPressed;
 @end
