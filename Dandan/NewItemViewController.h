@@ -13,8 +13,13 @@
 #import <CoreLocation/CoreLocation.h>
 #import "MJGeocodingServices.h"
 
+@class NewItemViewController;
+@protocol newItemViewControllerDelegate <NSObject>
+-(void)controller:(NewItemViewController *)controller type:(NSString *)type;
+@end
+
 @interface NewItemViewController : UIViewController
-<UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MKMapViewDelegate, MKReverseGeocoderDelegate,CLLocationManagerDelegate,MKAnnotation,MJReverseGeocoderDelegate, MJGeocoderDelegate>
+<UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MKMapViewDelegate,CLLocationManagerDelegate,MKAnnotation,MJReverseGeocoderDelegate, MJGeocoderDelegate>
 {
     CGRect imageFrame;
     MKPlacemark *mPlacemark;
@@ -49,6 +54,8 @@
 
 @property (strong, nonatomic) NSMutableArray *panes;
 @property (strong, nonatomic) UIView *openningPane;
+
+@property (nonatomic, weak) id <newItemViewControllerDelegate> delegate;
 
 - (IBAction)CancelModal:(id)sender;
 - (void)registerForKeyboardNotifications;
