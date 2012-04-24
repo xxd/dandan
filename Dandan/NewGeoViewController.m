@@ -7,6 +7,7 @@
 //
 
 #import "NewGeoViewController.h"
+#import "NewItemViewController.h"
 #import "ParkPlaceMark.h"
 #import "MyAnnotation.h"
 
@@ -15,7 +16,8 @@
 @end
 
 @implementation NewGeoViewController
-@synthesize mapView, mapPane, myLocationManager, coordinate, currentLocationButton, clearLocationButton, reverseGeocoder, forwardGeocoder, titles, subTitle,mapImage;
+@synthesize mapView, mapPane, myLocationManager, coordinate, currentLocationButton, clearLocationButton, reverseGeocoder, forwardGeocoder, titles, subTitle, mapImage;
+@synthesize theNewGeoDelegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,9 +56,23 @@
 //    [currentLocationButton setTitle:@"位置" forState:UIControlStateNormal];
 //    [currentLocationButton addTarget:self action:@selector(currentLocation) forControlEvents:UIControlEventTouchUpInside];
     
+    UIBarButtonItem * rightButton = [[UIBarButtonItem alloc]
+                                     initWithTitle:@"添加"
+                                     style:UIBarButtonItemStyleBordered
+                                     target:self
+                                     action:@selector(addGeoToItem)];
+    self.navigationItem.rightBarButtonItem = rightButton;
+    self.navigationItem.title=@"添加地理位置信息";
+    
     [self.view addSubview:self.mapView];    
     UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGesture:)];
     [self.mapView addGestureRecognizer:longPressGesture];
+}
+
+-(void)addGeoToItem
+{
+    [self.theNewGeoDelegate controller:self geoInfo:subTitle];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)handleLongPressGesture:(UIGestureRecognizer*)sender {
@@ -124,6 +140,7 @@
     reverseGeocoder = [[MJReverseGeocoder alloc] initWithCoordinate:coord];
     reverseGeocoder.delegate = self;
     [reverseGeocoder start];
+
 }
 
 #pragma mark -
@@ -139,9 +156,8 @@
                 addressComponents.route,
                 addressComponents.streetNumber];
     NSLog(@"subTitle: %@",subTitle);
-    //[self.newGeoDelegate controller:self geoInfo:subTitle];
+    
 }
-
 
 - (void)reverseGeocoder:(MJReverseGeocoder *)geocoder didFailWithError:(NSError *)error
 {

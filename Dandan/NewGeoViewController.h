@@ -13,7 +13,7 @@
 #import "MJGeocodingServices.h"
 
 @class NewGeoViewController;
-@protocol NewGeoDelegate
+@protocol NewGeoDelegate <NSObject>
 - (void)controller:(NewGeoViewController *)controller geoInfo:(NSString *)geoInfo;
 //- (void)controller:(NewGeoViewController *)controller geoImage:(UIImage *)geoImage;
 @end
@@ -37,5 +37,5 @@
 @property(nonatomic, readonly) NSString *titles;
 @property(nonatomic, readonly) NSString *subTitle;
 
-@property (nonatomic, weak) id <NewGeoDelegate> newGeoDelegate;
+@property (nonatomic, weak) id <NewGeoDelegate> theNewGeoDelegate;
 @end

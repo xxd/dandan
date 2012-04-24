@@ -14,11 +14,6 @@
 #import "MJGeocodingServices.h"
 #import "NewGeoViewController.h"
 
-@class NewItemViewController;
-@protocol newItemViewControllerDelegate <NSObject>
--(void)controller:(NewItemViewController *)controller type:(NSString *)type;
-@end
-
 @interface NewItemViewController : UIViewController
 <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MKMapViewDelegate,CLLocationManagerDelegate,MKAnnotation,MJReverseGeocoderDelegate, MJGeocoderDelegate,NewGeoDelegate>
 {
@@ -53,10 +48,9 @@
 @property(nonatomic, readonly) NSString *titles;
 @property(nonatomic, readonly) NSString *subTitle;
 
+@property(strong, nonatomic) UIView *geoInfoView;
 @property (strong, nonatomic) NSMutableArray *panes;
 @property (strong, nonatomic) UIView *openningPane;
-
-@property (nonatomic, weak) id <newItemViewControllerDelegate> delegate;
 
 - (IBAction)CancelModal:(id)sender;
 - (void)registerForKeyboardNotifications;

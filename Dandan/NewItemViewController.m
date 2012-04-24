@@ -30,6 +30,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 @synthesize scaledImage;
 @synthesize items;
 @synthesize mapView, myLocationManager, coordinate, currentLocationButton, clearLocationButton, reverseGeocoder, forwardGeocoder, titles, subTitle,mapImage;
+@synthesize geoInfoView;
 
 - (void)initTextView
 {
@@ -229,10 +230,15 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     }
 }
 
--(void)addGeoButtonPressed {
-    NewGeoViewController *geoView =[self.storyboard instantiateViewControllerWithIdentifier:@"NewGeoViewController"];
-    //geoView.newGeoDelegate = self;
-    [self.navigationController pushViewController:geoView animated:YES];
+-(void)addGeoButtonPressed 
+{
+    if (geoInfoView != nil) {
+        NSLog(@"the view is there!");
+    } else {
+        NewGeoViewController *geoView =[self.storyboard instantiateViewControllerWithIdentifier:@"NewGeoViewController"];
+        geoView.theNewGeoDelegate = self;
+        [self.navigationController pushViewController:geoView animated:YES];
+    }    
 }
 
 #pragma mark -
@@ -383,9 +389,10 @@ static UIImage *shrinkImage(UIImage *original, CGSize size){
 
 - (void)controller:(NewGeoViewController *)controller geoInfo:(NSString *)geoInfo
 {
-    UIView *geoInfoView = [[UIView alloc] initWithFrame:CGRectMake(33,148,182,28)];
+    geoInfoView = [[UIView alloc] initWithFrame:CGRectMake(28,125,200,20)];
     UILabel *geoInfoLabel = [[UILabel alloc]initWithFrame:geoInfoView.frame];
-    geoInfoLabel.text = geoInfo;
+    geoInfoLabel.text = [NSString stringWithFormat:@"位置:%@",geoInfo];
+    [self.view addSubview:geoInfoLabel];
 }
 //- (void)controller:(NewGeoViewController *)controller geoImage:(UIImage *)geoImage
 //{
