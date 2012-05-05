@@ -26,10 +26,10 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 @synthesize contentTextView, toolbar;
 @synthesize lastChosenMediaType, image, imageView;
 @synthesize changeImageButton, clearImageButton;
-@synthesize imagePane, mapPane, voicePane, songPane, openningPane, panes;
+@synthesize imagePane,  voicePane, songPane, openningPane, panes;
 @synthesize scaledImage;
 @synthesize items;
-@synthesize mapView, myLocationManager, coordinate, currentLocationButton, clearLocationButton, reverseGeocoder, forwardGeocoder, titles, subTitle,mapImage;
+@synthesize  myLocationManager, coordinate, currentLocationButton, clearLocationButton, reverseGeocoder, forwardGeocoder, titles, subTitle,mapPane;
 @synthesize geoInfoView;
 
 - (void)initTextView
@@ -149,7 +149,6 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     [super viewDidUnload];
     self.contentTextView = nil;
     self.toolbar = nil;
-    self.mapView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -212,17 +211,17 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     [self.changeImageButton setFrame:frame];
     
     // mapView
-    frame = self.mapView.frame;
-    frame.size.height = self.mapPane.frame.size.height - 55;
-    [self.mapView setFrame:frame];
-    
-    frame = self.clearLocationButton.frame;
-    frame.origin.y = self.mapView.frame.origin.y + self.mapView.frame.size.height + 10;
-    [self.clearLocationButton setFrame:frame];
-    
-    frame = self.currentLocationButton.frame;
-    frame.origin.y = self.mapView.frame.origin.y + self.mapView.frame.size.height + 10;
-    [self.currentLocationButton setFrame:frame];
+//    frame = self.mapView.frame;
+//    frame.size.height = self.mapPane.frame.size.height - 55;
+//    [self.mapView setFrame:frame];
+//    
+//    frame = self.clearLocationButton.frame;
+//    frame.origin.y = self.mapView.frame.origin.y + self.mapView.frame.size.height + 10;
+//    [self.clearLocationButton setFrame:frame];
+//    
+//    frame = self.currentLocationButton.frame;
+//    frame.origin.y = self.mapView.frame.origin.y + self.mapView.frame.size.height + 10;
+//    [self.currentLocationButton setFrame:frame];
     
     if (self.scaledImage) {
         UIImage *cropImage = [self.scaledImage cropToSize:CGSizeMake(600, self.imageView.frame.size.height*2) usingMode:NYXCropModeCenter];
@@ -234,23 +233,18 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 {
     if (geoInfoView != nil) {
         NSLog(@"the view is there!");
+        UIActionSheet *addGeoActionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                                            delegate:self
+                                                                   cancelButtonTitle:@"取消"
+                                                              destructiveButtonTitle:nil
+                                                                   otherButtonTitles:@"重新选择位置信息", nil];
+        [addGeoActionSheet showInView:self.view];
     } else {
         NewGeoViewController *geoView =[self.storyboard instantiateViewControllerWithIdentifier:@"NewGeoViewController"];
         geoView.theNewGeoDelegate = self;
         [self.navigationController pushViewController:geoView animated:YES];
     }    
 }
-
-#pragma mark -
-#pragma mark Location
-
-- (void)handleLocation{
-    [contentTextView resignFirstResponder];
-    [self changePane:mapPane];
-    
-    
-}
-
 
 #pragma mark -
 #pragma mark Handle Uploaders
@@ -389,14 +383,63 @@ static UIImage *shrinkImage(UIImage *original, CGSize size){
 
 - (void)controller:(NewGeoViewController *)controller geoInfo:(NSString *)geoInfo
 {
-    geoInfoView = [[UIView alloc] initWithFrame:CGRectMake(28,125,200,20)];
+    geoInfoView = [[UIView alloc] initWithFrame:CGRectMake(self.toolbar.frame.origin.x+10,self.toolbar.frame.origin.y-20,260,20)];
+    
     UILabel *geoInfoLabel = [[UILabel alloc]initWithFrame:geoInfoView.frame];
+    geoInfoLabel.backgroundColor = [UIColor  colorWithRed: 240/255.0 green: 248/255.0 blue:250/255.0 alpha: 1.0];
+//    240,248,255
     geoInfoLabel.text = [NSString stringWithFormat:@"位置:%@",geoInfo];
     [self.view addSubview:geoInfoLabel];
 }
-//- (void)controller:(NewGeoViewController *)controller geoImage:(UIImage *)geoImage
-//{
-//
-//}
 
+- (void)controller:(NewGeoViewController *)controller geoImage:(UIImage *)geoImage
+{
+    UIImageView *imageToMove = [[UIImageView alloc] initWithImage:geoImage];
+    imageToMove.frame = CGRectMake(self.toolbar.frame.origin.x+200,self.toolbar.frame.origin.y+5, 30, 30);
+    [self.view addSubview:imageToMove];
+    
+    // Move the image
+    [self moveImage:imageToMove duration:1.0 curve:UIViewAnimationCurveLinear x:-50.0 y:0.0];  
+    
+    UIButton *composeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [composeButton setFrame:CGRectMake(0.0f, 0.0f, 30.0f, 30.0f)];
+        [composeButton addTarget:self action:@selector(addGeoButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    
+        CALayer *sublayer = [composeButton layer];
+        sublayer.backgroundColor = [UIColor blueColor].CGColor;
+        sublayer.shadowOffset = CGSizeMake(0, 0);
+        sublayer.shadowRadius = 3.0;
+        sublayer.shadowColor = [UIColor blackColor].CGColor;
+        sublayer.shadowOpacity = 0.8;
+        sublayer.frame = CGRectMake(self.view.frame.size.width/2-15, self.view.frame.size.height/2-15,30,30);
+        sublayer.cornerRadius = 15;
+        
+        CALayer *imageLayer = [CALayer layer];
+        imageLayer.frame = sublayer.bounds;
+        imageLayer.cornerRadius = 15.0;
+        imageLayer.contents = (id) geoImage.CGImage;
+        imageLayer.borderWidth = 1;
+        imageLayer.borderColor = [UIColor whiteColorWithAlpha:0.7].CGColor;
+        imageLayer.masksToBounds = YES;
+        [sublayer addSublayer:imageLayer];
+        
+        UIBarButtonItem *composePost = [[UIBarButtonItem alloc] initWithCustomView:composeButton];
+        [items replaceObjectAtIndex:2 withObject:composePost];
+        [self.toolbar setItems:items animated:NO];
+}
+
+- (void)moveImage:(UIImageView *)image duration:(NSTimeInterval)duration
+            curve:(int)curve x:(CGFloat)x y:(CGFloat)y
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:duration];
+    [UIView setAnimationCurve:curve];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    
+    CGAffineTransform transform = CGAffineTransformMakeTranslation(x, y);
+    image.transform = transform;
+    
+    // Commit the changes
+    [UIView commitAnimations];
+}
 @end

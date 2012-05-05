@@ -17,7 +17,7 @@
 
 @implementation NewGeoViewController
 @synthesize mapView, mapPane, myLocationManager, coordinate, currentLocationButton, clearLocationButton, reverseGeocoder, forwardGeocoder, titles, subTitle, mapImage;
-@synthesize theNewGeoDelegate;
+@synthesize theNewGeoDelegate,point,coord,coordPressed,subTitlePressed;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -71,8 +71,23 @@
 
 -(void)addGeoToItem
 {
-    [self.theNewGeoDelegate controller:self geoInfo:subTitle];
-    [self.navigationController popViewControllerAnimated:YES];
+    if ([NSStringFromCGPoint(point) isEqualToString:@"{0, 0}"]) {
+        NSLog(@"it's the default point {0, 0}");
+        [self.theNewGeoDelegate controller:self geoInfo:subTitle];
+        NSLog(@"subTitle pass to Itemview: %@",subTitle);
+        [self.theNewGeoDelegate controller:self geoImage:mapImage];
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        NSLog(@"it's the touch point %@",NSStringFromCGPoint(point));
+        
+        [self.theNewGeoDelegate controller:self geoInfo:subTitle];
+        [self.theNewGeoDelegate controller:self geoImage:mapImage];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
+//    [self.theNewGeoDelegate controller:self geoInfo:subTitle];
+//    [self.theNewGeoDelegate controller:self geoImage:mapImage];
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)handleLongPressGesture:(UIGestureRecognizer*)sender {
@@ -82,10 +97,14 @@
     }
     else
     {
-        CGPoint point = [sender locationInView:self.mapView];
-        CLLocationCoordinate2D locCoord = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
-        ParkPlaceMark *dropPin = [[ParkPlaceMark alloc] initWithTitle:subTitle andCoordinate:locCoord];
+        point = [sender locationInView:self.mapView];
+        NSLog(@"%@",NSStringFromCGPoint(point));
+//        CLLocationCoordinate2D locCoord = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
+        coordPressed= [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
+        [self obtainImageandGeoInfo:coordPressed];
+        ParkPlaceMark *dropPin = [[ParkPlaceMark alloc] initWithTitle:subTitle andCoordinate:coordPressed];
         [self.mapView addAnnotation:dropPin];
+        
     }
 }
 
@@ -100,69 +119,42 @@
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-    CLLocationCoordinate2D coord = userLocation.location.coordinate;
+    coord = userLocation.location.coordinate;
     
     [self.mapView setRegion:MKCoordinateRegionMake(coord, MKCoordinateSpanMake(0.005f, 0.005f)) animated:YES];
-    self.mapView.userLocation.title = @"当前位置:";
-    self.mapView.userLocation.subtitle = subTitle;
-    
-    NSString *staticMapUrl = [NSString stringWithFormat:@"http://maps.google.com/maps/api/staticmap?markers=color:red|%f,%f&%@&sensor=true",coord.latitude, coord.longitude,@"zoom=10&size=60x60"];
+    //self.mapView.userLocation.title = @"当前位置:";
+    //self.mapView.userLocation.subtitle = subTitle;
+    NSLog(@"subTitle is: %@",subTitle);
+    [self obtainImageandGeoInfo:coord];
+}
+
+- (void)obtainImageandGeoInfo:(CLLocationCoordinate2D )coordi
+{
+    NSString *staticMapUrl = [NSString stringWithFormat:@"http://maps.google.com/maps/api/staticmap?markers=color:red|%f,%f&%@&sensor=true",coordi.latitude, coordi.longitude,@"zoom=10&size=60x60"];
     NSLog(@"url:%@",staticMapUrl);
     NSURL *mapUrl = [NSURL URLWithString:[staticMapUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]; 
     mapImage= [UIImage imageWithData: [NSData dataWithContentsOfURL:mapUrl]];
-    
-//    UIButton *composeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [composeButton setFrame:CGRectMake(0.0f, 0.0f, 30.0f, 30.0f)];
-//    [composeButton addTarget:self action:@selector(handleLocation) forControlEvents:UIControlEventTouchUpInside];
-    
-//    CALayer *sublayer = [composeButton layer];
-//    sublayer.backgroundColor = [UIColor blueColor].CGColor;
-//    sublayer.shadowOffset = CGSizeMake(0, 0);
-//    sublayer.shadowRadius = 3.0;
-//    sublayer.shadowColor = [UIColor blackColor].CGColor;
-//    sublayer.shadowOpacity = 0.8;
-//    sublayer.frame = CGRectMake(self.view.frame.size.width/2-15, self.view.frame.size.height/2-15,30,30);
-//    sublayer.cornerRadius = 15;
-//    
-//    CALayer *imageLayer = [CALayer layer];
-//    imageLayer.frame = sublayer.bounds;
-//    imageLayer.cornerRadius = 15.0;
-//    imageLayer.contents = (id) mapImage.CGImage;
-//    imageLayer.borderWidth = 1;
-//    imageLayer.borderColor = [UIColor whiteColorWithAlpha:0.7].CGColor;
-//    imageLayer.masksToBounds = YES;
-//    [sublayer addSublayer:imageLayer];
-//    
-//    UIBarButtonItem *composePost = [[UIBarButtonItem alloc] initWithCustomView:composeButton];
-//    [items replaceObjectAtIndex:2 withObject:composePost];
-//    [self.toolbar setItems:items animated:NO];
-    
-    reverseGeocoder = [[MJReverseGeocoder alloc] initWithCoordinate:coord];
+
+    reverseGeocoder = [[MJReverseGeocoder alloc] initWithCoordinate:coordi];
     reverseGeocoder.delegate = self;
     [reverseGeocoder start];
-
 }
-
 #pragma mark -
 #pragma mark MJReverseGeocoderDelegate
 
 - (void)reverseGeocoder:(MJReverseGeocoder *)geocoder didFindAddress:(AddressComponents *)addressComponents{
-	//hide network indicator
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-	
 	subTitle = [NSString stringWithFormat:@"%@ %@, %@, %@", 
                 addressComponents.stateCode,
                 addressComponents.city,
                 addressComponents.route,
                 addressComponents.streetNumber];
     NSLog(@"subTitle: %@",subTitle);
-    
 }
 
 - (void)reverseGeocoder:(MJReverseGeocoder *)geocoder didFailWithError:(NSError *)error
 {
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-	
     NSLog(@"Couldn't reverse geocode coordinate!");
 }
 

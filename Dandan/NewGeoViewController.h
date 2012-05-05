@@ -15,7 +15,7 @@
 @class NewGeoViewController;
 @protocol NewGeoDelegate <NSObject>
 - (void)controller:(NewGeoViewController *)controller geoInfo:(NSString *)geoInfo;
-//- (void)controller:(NewGeoViewController *)controller geoImage:(UIImage *)geoImage;
+- (void)controller:(NewGeoViewController *)controller geoImage:(UIImage *)geoImage;
 @end
 
 @interface NewGeoViewController : UIViewController<UIActionSheetDelegate, UINavigationControllerDelegate,MKMapViewDelegate,CLLocationManagerDelegate,MKAnnotation,MJReverseGeocoderDelegate, MJGeocoderDelegate>
@@ -29,13 +29,17 @@
 @property (strong, nonatomic) UIImage *mapImage;
 @property (strong, nonatomic) CLLocationManager *myLocationManager;
 @property (readonly, nonatomic) CLLocationCoordinate2D coordinate;
+@property (readonly, nonatomic) CLLocationCoordinate2D coord;
+@property (readonly, nonatomic) CLLocationCoordinate2D coordPressed;
 @property (strong, nonatomic) UIView *mapPane;
 @property (strong, nonatomic) UIButton *currentLocationButton;
 @property (strong, nonatomic) UIButton *clearLocationButton;
+@property (readonly, nonatomic) CGPoint point;
 @property(nonatomic, retain) MJReverseGeocoder *reverseGeocoder;
 @property(nonatomic, retain) MJGeocoder *forwardGeocoder;
 @property(nonatomic, readonly) NSString *titles;
 @property(nonatomic, readonly) NSString *subTitle;
+@property(nonatomic, readonly) NSString *subTitlePressed;
 
 @property (nonatomic, weak) id <NewGeoDelegate> theNewGeoDelegate;
 @end

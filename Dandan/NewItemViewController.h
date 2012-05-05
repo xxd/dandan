@@ -33,14 +33,15 @@
 @property (strong, nonatomic) UIImage *scaledImage;
 
 @property (strong, nonatomic) UIView *imagePane;
+@property (strong, nonatomic) UIView *voicePane;
+@property (strong, nonatomic) UIView *songPane;
 
-@property (strong, nonatomic) MKMapView *mapView;
+
 @property (strong, nonatomic) UIImage *mapImage;
 @property (strong, nonatomic) CLLocationManager *myLocationManager;
 @property (readonly, nonatomic) CLLocationCoordinate2D coordinate;
 @property (strong, nonatomic) UIView *mapPane;
-@property (strong, nonatomic) UIView *voicePane;
-@property (strong, nonatomic) UIView *songPane;
+
 @property (strong, nonatomic) UIButton *currentLocationButton;
 @property (strong, nonatomic) UIButton *clearLocationButton;
 @property(nonatomic, retain) MJReverseGeocoder *reverseGeocoder;
@@ -54,5 +55,5 @@
 
 - (IBAction)CancelModal:(id)sender;
 - (void)registerForKeyboardNotifications;
--(void)addGeoButtonPressed;
+- (void)addGeoButtonPressed;
 @end

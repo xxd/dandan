@@ -61,7 +61,7 @@ static sqlite3_stmt *statementChk = nil;
     }
     sqlite3_finalize(statementChk);
 }
-
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 -(void)initializeDatabase{    
     if (sqlite3_open([databasePath UTF8String], &database) == SQLITE_OK) {
         NSArray *tableArray = [NSArray arrayWithObjects:@"List", @"Categorie", nil];
@@ -87,10 +87,10 @@ static sqlite3_stmt *statementChk = nil;
                         {
                             [self performSelector:syncToLiteSel];
                         } else {
-                            NSLog(@"## Class does not respond to %s", syncToLiteSel);
+                            NSLog(@"## Class does not respond to %s", sel_getName(syncToLiteSel));
                         }
                     } else {
-                        NSLog(@"## Class does not respond to %s", customSelector);
+                        NSLog(@"## Class does not respond to %s", sel_getName(customSelector));
                     }
                 } else {
                     if ([[Sync alloc] respondsToSelector:customSelector]) {
@@ -100,10 +100,10 @@ static sqlite3_stmt *statementChk = nil;
                         {
                             [self performSelector:syncToLiteSel];
                         } else {
-                            NSLog(@"## Class does not respond to %s", syncToLiteSel);
+                            NSLog(@"## Class does not respond to %s", sel_getName(syncToLiteSel));
                         }
                     } else {
-                        NSLog(@"## Class does not respond to %s", customSelector);
+                        NSLog(@"## Class does not respond to %s", sel_getName(customSelector));
                     }
                 }
             }
